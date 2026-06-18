@@ -9,9 +9,10 @@ description: "Task list template for feature implementation"
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: Tests are REQUIRED by the SDD Employee List Constitution for each
-story that changes employee creation, validation, persistence, display, or demo
-operations. Write the tests first and verify they fail before implementation.
+**Tests**: Tests are REQUIRED by the SDD Employee List Constitution for core
+business behavior. Include test tasks that verify approved requirements,
+acceptance criteria, validation behavior, persistence behavior, and important
+failure paths at the appropriate level.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -82,7 +83,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (REQUIRED for employee-list behavior) ⚠️
+### Tests for User Story 1 (REQUIRED for core business behavior) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
@@ -108,7 +109,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (REQUIRED for employee-list behavior) ⚠️
+### Tests for User Story 2 (REQUIRED for core business behavior) ⚠️
 
 - [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
@@ -130,7 +131,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (REQUIRED for employee-list behavior) ⚠️
+### Tests for User Story 3 (REQUIRED for core business behavior) ⚠️
 
 - [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
@@ -181,7 +182,7 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Within Each User Story
 
-- Tests MUST be written and FAIL before implementation for employee-list behavior
+- Tests MUST verify core business behavior before story acceptance
 - Models before services
 - Services before endpoints
 - Core implementation before integration

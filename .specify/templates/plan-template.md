@@ -43,19 +43,20 @@
 The plan MUST document how the feature satisfies the SDD Employee List
 Constitution:
 
-- Spec traceability: user stories, requirements, assumptions, and success
-  criteria are present before implementation planning.
-- Spring Boot boundaries: backend controller/API, service, persistence, and
-  employee domain responsibilities are identified.
-- Required stack: Java Spring Boot backend, React and TypeScript UI, and
-  PostgreSQL running in Docker are used unless a constitution exception is
-  documented.
-- Test-first evidence: failing tests are planned before implementation for each
-  story that changes employee creation, validation, persistence, or display.
-- Employee data integrity and privacy: name, email, and phone validation rules
-  are specified; logs and errors avoid unnecessary personal data exposure.
-- Demo operations: local start, test, Docker database setup/reset or reseed, and
-  observable failure behavior are covered.
+- Specification first: requirements and acceptance criteria are approved before
+  implementation begins.
+- Simplicity: the chosen design is the simplest maintainable approach that
+  satisfies approved requirements; added complexity is justified below.
+- Layered architecture: business logic, API concerns, data access, and UI
+  concerns have clear ownership boundaries.
+- Data integrity: validation rules, persistence constraints, and invalid-input
+  behavior are specified before implementation.
+- Testability: core business behavior has planned automated test coverage tied
+  to requirements or acceptance criteria.
+- Traceability: implementation tasks can map back to specs, plans, and design
+  decisions.
+- Verification: AI-generated code review will compare delivered behavior against
+  requirements and acceptance criteria before acceptance.
 - Clarifications: unresolved decisions are annotated with
   `NEEDS CLARIFICATION(NAME): ...` and either resolved before implementation or
   justified as non-blocking.

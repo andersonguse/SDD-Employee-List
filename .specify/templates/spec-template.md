@@ -73,9 +73,9 @@
 <!--
   ACTION REQUIRED: The content in this section represents placeholders.
   Fill them out with the right edge cases.
-  For the SDD Employee List project, include edge cases for missing employee
-  fields, malformed email addresses, invalid phone numbers, duplicate records if
-  relevant, database failures, and safe handling of personal data in errors/logs.
+  Include edge cases for missing or malformed input, duplicate or inconsistent
+  data when relevant, persistence failures, and safe handling of validation
+  errors.
 -->
 
 - What happens when [boundary condition]?
@@ -106,9 +106,10 @@
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
 
-For employee-list features, include **Employee** with name, email address, and
-phone number. Annotate unresolved validation, uniqueness, retention, or deletion
-rules with `NEEDS CLARIFICATION(NAME): explanation`.
+For features involving persisted data, include entities, key attributes,
+relationships, validation rules, and consistency constraints. Annotate unresolved
+validation, uniqueness, retention, or deletion rules with
+`NEEDS CLARIFICATION(NAME): explanation`.
 
 ## Success Criteria *(mandatory)*
 
