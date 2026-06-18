@@ -27,6 +27,10 @@ names, but the validation outcomes must remain the same.
    mvn test
    ```
 
+   Backend automated tests use an in-memory test database so they can run even
+   when Docker Desktop is not running. The application runtime still uses the
+   Dockerized PostgreSQL service from `docker-compose.yml`.
+
 3. Run frontend checks:
 
    ```powershell
@@ -51,6 +55,11 @@ names, but the validation outcomes must remain the same.
    ```
 
 6. Open the frontend URL shown by the dev server.
+
+Expected local URLs:
+
+- Backend API: `http://localhost:8080/api/employees`
+- Frontend UI: `http://localhost:5173`
 
 ## Validation Scenarios
 
@@ -111,3 +120,16 @@ Push or open a pull request after implementation.
 
 Expected result: GitHub Actions runs backend tests and frontend tests/build. The
 workflow does not deploy to a cloud environment.
+
+## Implementation Validation Results
+
+Validated on 2026-06-18:
+
+- Backend: `mvn test` passed from `backend/`.
+- Frontend: `npm test` passed from `frontend/`.
+- Frontend: `npm run build` passed from `frontend/`.
+
+Note: Docker was available as a CLI, but the local Docker daemon was not
+available to automated tests in this environment. Backend tests therefore use an
+in-memory test database, while runtime configuration still uses Dockerized
+PostgreSQL for the local demo.

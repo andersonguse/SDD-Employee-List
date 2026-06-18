@@ -1,0 +1,6 @@
+CREATE TABLE employees (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(320) NOT NULL UNIQUE,
+    phone_number VARCHAR(30) NOT NULL
+);

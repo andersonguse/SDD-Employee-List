@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: sdd-employee-list
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sdd_employee_list
+    username: sdd_user
+    password: sdd_password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+app:
+  cors:
+    allowed-origin: http://localhost:5173

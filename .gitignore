@@ -1,0 +1,32 @@
+# Java
+target/
+*.class
+*.jar
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+npm-debug.log*
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp

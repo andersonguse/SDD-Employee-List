@@ -18,16 +18,16 @@
 
 **Purpose**: Create the project skeleton, dependency manifests, local database runtime, and CI shell needed by every story.
 
-- [ ] T001 Create backend Maven Spring Boot project descriptor with web, validation, data JPA, PostgreSQL, Flyway, test, and Testcontainers dependencies in `backend/pom.xml`
-- [ ] T002 [P] Create backend application entry point in `backend/src/main/java/com/andersonguse/sddemployeelist/EmployeeListApplication.java`
-- [ ] T003 [P] Create frontend Vite React TypeScript package scripts and dependencies in `frontend/package.json`
-- [ ] T004 [P] Create frontend TypeScript and Vite configuration in `frontend/tsconfig.json` and `frontend/vite.config.ts`
-- [ ] T005 [P] Create frontend application shell files in `frontend/src/main.tsx`, `frontend/src/App.tsx`, and `frontend/src/styles/app.css`
-- [ ] T006 Create Docker Compose PostgreSQL service for local development in `docker-compose.yml`
-- [ ] T007 Create backend application configuration for local PostgreSQL and CORS in `backend/src/main/resources/application.yml`
-- [ ] T008 Create validation-only GitHub Actions workflow for backend and frontend checks in `.github/workflows/ci.yml`
-- [ ] T009 [P] Create backend test resources configuration for integration tests in `backend/src/test/resources/application-test.yml`
-- [ ] T010 [P] Create project ignore rules for Java, Node, build output, and local environment files in `.gitignore`
+- [X] T001 Create backend Maven Spring Boot project descriptor with web, validation, data JPA, PostgreSQL, Flyway, test, and Testcontainers dependencies in `backend/pom.xml`
+- [X] T002 [P] Create backend application entry point in `backend/src/main/java/com/andersonguse/sddemployeelist/EmployeeListApplication.java`
+- [X] T003 [P] Create frontend Vite React TypeScript package scripts and dependencies in `frontend/package.json`
+- [X] T004 [P] Create frontend TypeScript and Vite configuration in `frontend/tsconfig.json` and `frontend/vite.config.ts`
+- [X] T005 [P] Create frontend application shell files in `frontend/src/main.tsx`, `frontend/src/App.tsx`, and `frontend/src/styles/app.css`
+- [X] T006 Create Docker Compose PostgreSQL service for local development in `docker-compose.yml`
+- [X] T007 Create backend application configuration for local PostgreSQL and CORS in `backend/src/main/resources/application.yml`
+- [X] T008 Create validation-only GitHub Actions workflow for backend and frontend checks in `.github/workflows/ci.yml`
+- [X] T009 [P] Create backend test resources configuration for integration tests in `backend/src/test/resources/application-test.yml`
+- [X] T010 [P] Create project ignore rules for Java, Node, build output, and local environment files in `.gitignore`
 
 ---
 
@@ -37,17 +37,17 @@
 
 **Critical**: No user story implementation should begin until this phase is complete.
 
-- [ ] T011 Create Employee JPA entity with auto-generated incrementing ID and unique email constraint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/Employee.java`
-- [ ] T012 Create initial Flyway employee table migration with id, name, email, and phone_number columns in `backend/src/main/resources/db/migration/V1__create_employees.sql`
-- [ ] T013 Create EmployeeRepository with email uniqueness lookup methods in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRepository.java`
-- [ ] T014 Create EmployeeRequest validation DTO for name, email, and phone number in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRequest.java`
-- [ ] T015 Create EmployeeResponse DTO for id, name, email, and phone number in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeResponse.java`
-- [ ] T016 Create shared ApiError and field validation error response shape in `backend/src/main/java/com/andersonguse/sddemployeelist/shared/ApiError.java`
-- [ ] T017 Create GlobalExceptionHandler for validation, duplicate email, not found, and unexpected errors in `backend/src/main/java/com/andersonguse/sddemployeelist/shared/GlobalExceptionHandler.java`
-- [ ] T018 Create EmployeeService skeleton with mapping helpers and validation entry points in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T019 Create EmployeeController skeleton mapped to `/api/employees` in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
-- [ ] T020 Create frontend Employee and EmployeeInput TypeScript types in `frontend/src/api/employees.ts`
-- [ ] T021 Create frontend API error parsing helpers in `frontend/src/api/employees.ts`
+- [X] T011 Create Employee JPA entity with auto-generated incrementing ID and unique email constraint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/Employee.java`
+- [X] T012 Create initial Flyway employee table migration with id, name, email, and phone_number columns in `backend/src/main/resources/db/migration/V1__create_employees.sql`
+- [X] T013 Create EmployeeRepository with email uniqueness lookup methods in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRepository.java`
+- [X] T014 Create EmployeeRequest validation DTO for name, email, and phone number in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRequest.java`
+- [X] T015 Create EmployeeResponse DTO for id, name, email, and phone number in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeResponse.java`
+- [X] T016 Create shared ApiError and field validation error response shape in `backend/src/main/java/com/andersonguse/sddemployeelist/shared/ApiError.java`
+- [X] T017 Create GlobalExceptionHandler for validation, duplicate email, not found, and unexpected errors in `backend/src/main/java/com/andersonguse/sddemployeelist/shared/GlobalExceptionHandler.java`
+- [X] T018 Create EmployeeService skeleton with mapping helpers and validation entry points in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T019 Create EmployeeController skeleton mapped to `/api/employees` in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
+- [X] T020 Create frontend Employee and EmployeeInput TypeScript types in `frontend/src/api/employees.ts`
+- [X] T021 Create frontend API error parsing helpers in `frontend/src/api/employees.ts`
 
 **Checkpoint**: Backend and frontend skeletons compile, database schema can be created, and shared contracts are ready for story implementation.
 
@@ -61,19 +61,19 @@
 
 ### Tests for User Story 1
 
-- [ ] T022 [P] [US1] Add EmployeeService create validation and duplicate email tests in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
-- [ ] T023 [P] [US1] Add create employee REST integration tests for 201, 400, and 409 responses in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
-- [ ] T024 [P] [US1] Add frontend add employee form validation and submit tests in `frontend/src/components/EmployeeForm.test.tsx`
-- [ ] T025 [P] [US1] Add frontend create API client tests in `frontend/src/api/employees.test.ts`
+- [X] T022 [P] [US1] Add EmployeeService create validation and duplicate email tests in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T023 [P] [US1] Add create employee REST integration tests for 201, 400, and 409 responses in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T024 [P] [US1] Add frontend add employee form validation and submit tests in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T025 [P] [US1] Add frontend create API client tests in `frontend/src/api/employees.test.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T026 [US1] Implement EmployeeService createEmployee with trimming, required field validation, email format validation, phone validation, duplicate email prevention, and persistence in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T027 [US1] Implement POST `/api/employees` controller endpoint returning 201 and EmployeeResponse in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
-- [ ] T028 [US1] Implement createEmployee API client function in `frontend/src/api/employees.ts`
-- [ ] T029 [US1] Implement reusable EmployeeForm component for create mode with field-specific errors in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T030 [US1] Wire EmployeeForm create flow into the main page state in `frontend/src/App.tsx`
-- [ ] T031 [US1] Add user-facing success and failure styling for create flow in `frontend/src/styles/app.css`
+- [X] T026 [US1] Implement EmployeeService createEmployee with trimming, required field validation, email format validation, phone validation, duplicate email prevention, and persistence in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T027 [US1] Implement POST `/api/employees` controller endpoint returning 201 and EmployeeResponse in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
+- [X] T028 [US1] Implement createEmployee API client function in `frontend/src/api/employees.ts`
+- [X] T029 [US1] Implement reusable EmployeeForm component for create mode with field-specific errors in `frontend/src/components/EmployeeForm.tsx`
+- [X] T030 [US1] Wire EmployeeForm create flow into the main page state in `frontend/src/App.tsx`
+- [X] T031 [US1] Add user-facing success and failure styling for create flow in `frontend/src/styles/app.css`
 
 **Checkpoint**: User Story 1 is independently functional and testable through the web page and API.
 
@@ -87,19 +87,19 @@
 
 ### Tests for User Story 2
 
-- [ ] T032 [P] [US2] Add EmployeeService list employees tests for populated and empty results in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
-- [ ] T033 [P] [US2] Add list employees REST integration tests for 200 response and empty response in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
-- [ ] T034 [P] [US2] Add EmployeeTable rendering and empty-state tests in `frontend/src/components/EmployeeTable.test.tsx`
-- [ ] T035 [P] [US2] Add frontend list API client tests in `frontend/src/api/employees.test.ts`
+- [X] T032 [P] [US2] Add EmployeeService list employees tests for populated and empty results in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T033 [P] [US2] Add list employees REST integration tests for 200 response and empty response in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T034 [P] [US2] Add EmployeeTable rendering and empty-state tests in `frontend/src/components/EmployeeTable.test.tsx`
+- [X] T035 [P] [US2] Add frontend list API client tests in `frontend/src/api/employees.test.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T036 [US2] Implement EmployeeService listEmployees ordered by id in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T037 [US2] Implement GET `/api/employees` controller endpoint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
-- [ ] T038 [US2] Implement listEmployees API client function in `frontend/src/api/employees.ts`
-- [ ] T039 [US2] Implement EmployeeTable component with employee rows and empty-state display in `frontend/src/components/EmployeeTable.tsx`
-- [ ] T040 [US2] Load employees when the app opens and after successful create in `frontend/src/App.tsx`
-- [ ] T041 [US2] Add table and empty-state styling in `frontend/src/styles/app.css`
+- [X] T036 [US2] Implement EmployeeService listEmployees ordered by id in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T037 [US2] Implement GET `/api/employees` controller endpoint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
+- [X] T038 [US2] Implement listEmployees API client function in `frontend/src/api/employees.ts`
+- [X] T039 [US2] Implement EmployeeTable component with employee rows and empty-state display in `frontend/src/components/EmployeeTable.tsx`
+- [X] T040 [US2] Load employees when the app opens and after successful create in `frontend/src/App.tsx`
+- [X] T041 [US2] Add table and empty-state styling in `frontend/src/styles/app.css`
 
 **Checkpoint**: User Stories 1 and 2 work together as the MVP: add an employee and see the current list.
 
@@ -113,19 +113,19 @@
 
 ### Tests for User Story 3
 
-- [ ] T042 [P] [US3] Add EmployeeService update tests for valid update, invalid update preservation, duplicate email, and missing employee in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
-- [ ] T043 [P] [US3] Add update employee REST integration tests for 200, 400, 404, and 409 responses in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
-- [ ] T044 [P] [US3] Add EmployeeForm edit mode tests for prefilled values, valid save, and field errors in `frontend/src/components/EmployeeForm.test.tsx`
-- [ ] T045 [P] [US3] Add frontend update API client tests in `frontend/src/api/employees.test.ts`
+- [X] T042 [P] [US3] Add EmployeeService update tests for valid update, invalid update preservation, duplicate email, and missing employee in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T043 [P] [US3] Add update employee REST integration tests for 200, 400, 404, and 409 responses in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T044 [P] [US3] Add EmployeeForm edit mode tests for prefilled values, valid save, and field errors in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T045 [P] [US3] Add frontend update API client tests in `frontend/src/api/employees.test.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T046 [US3] Implement EmployeeService updateEmployee preserving id and existing data on validation failure in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T047 [US3] Implement PUT `/api/employees/{id}` controller endpoint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
-- [ ] T048 [US3] Implement updateEmployee API client function in `frontend/src/api/employees.ts`
-- [ ] T049 [US3] Extend EmployeeForm for edit mode with cancel and existing values in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T050 [US3] Add edit selection, save, cancel, and list refresh state flow in `frontend/src/App.tsx`
-- [ ] T051 [US3] Add edit action controls and edit-state styling in `frontend/src/components/EmployeeTable.tsx` and `frontend/src/styles/app.css`
+- [X] T046 [US3] Implement EmployeeService updateEmployee preserving id and existing data on validation failure in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T047 [US3] Implement PUT `/api/employees/{id}` controller endpoint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
+- [X] T048 [US3] Implement updateEmployee API client function in `frontend/src/api/employees.ts`
+- [X] T049 [US3] Extend EmployeeForm for edit mode with cancel and existing values in `frontend/src/components/EmployeeForm.tsx`
+- [X] T050 [US3] Add edit selection, save, cancel, and list refresh state flow in `frontend/src/App.tsx`
+- [X] T051 [US3] Add edit action controls and edit-state styling in `frontend/src/components/EmployeeTable.tsx` and `frontend/src/styles/app.css`
 
 **Checkpoint**: Users can add, view, and edit employees while validation protects persisted data.
 
@@ -139,19 +139,19 @@
 
 ### Tests for User Story 4
 
-- [ ] T052 [P] [US4] Add EmployeeService delete tests for existing and missing employees in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
-- [ ] T053 [P] [US4] Add delete employee REST integration tests for 204 and 404 responses in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
-- [ ] T054 [P] [US4] Add EmployeeTable delete confirmation and cancel tests in `frontend/src/components/EmployeeTable.test.tsx`
-- [ ] T055 [P] [US4] Add frontend delete API client tests in `frontend/src/api/employees.test.ts`
+- [X] T052 [P] [US4] Add EmployeeService delete tests for existing and missing employees in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T053 [P] [US4] Add delete employee REST integration tests for 204 and 404 responses in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T054 [P] [US4] Add EmployeeTable delete confirmation and cancel tests in `frontend/src/components/EmployeeTable.test.tsx`
+- [X] T055 [P] [US4] Add frontend delete API client tests in `frontend/src/api/employees.test.ts`
 
 ### Implementation for User Story 4
 
-- [ ] T056 [US4] Implement EmployeeService deleteEmployee in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T057 [US4] Implement DELETE `/api/employees/{id}` controller endpoint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
-- [ ] T058 [US4] Implement deleteEmployee API client function in `frontend/src/api/employees.ts`
-- [ ] T059 [US4] Add delete and confirmation controls to EmployeeTable in `frontend/src/components/EmployeeTable.tsx`
-- [ ] T060 [US4] Add delete flow state, cancel handling, success handling, and list refresh in `frontend/src/App.tsx`
-- [ ] T061 [US4] Add delete confirmation and destructive action styling in `frontend/src/styles/app.css`
+- [X] T056 [US4] Implement EmployeeService deleteEmployee in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T057 [US4] Implement DELETE `/api/employees/{id}` controller endpoint in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeController.java`
+- [X] T058 [US4] Implement deleteEmployee API client function in `frontend/src/api/employees.ts`
+- [X] T059 [US4] Add delete and confirmation controls to EmployeeTable in `frontend/src/components/EmployeeTable.tsx`
+- [X] T060 [US4] Add delete flow state, cancel handling, success handling, and list refresh in `frontend/src/App.tsx`
+- [X] T061 [US4] Add delete confirmation and destructive action styling in `frontend/src/styles/app.css`
 
 **Checkpoint**: Full CRUD behavior is functional through the web page.
 
@@ -161,14 +161,14 @@
 
 **Purpose**: Complete demo readiness, CI validation, documentation, and acceptance review.
 
-- [ ] T062 [P] Add backend README commands for tests and local run in `backend/README.md`
-- [ ] T063 [P] Add frontend README commands for tests, build, and local run in `frontend/README.md`
-- [ ] T064 Update root README with local demo startup sequence and feature overview in `README.md`
-- [ ] T065 Verify GitHub Actions backend test and frontend test/build jobs in `.github/workflows/ci.yml`
-- [ ] T066 Add quickstart validation notes for final command names and expected local URLs in `specs/001-employee-crud/quickstart.md`
-- [ ] T067 Run backend test suite and document any required follow-up in `specs/001-employee-crud/quickstart.md`
-- [ ] T068 Run frontend test/build suite and document any required follow-up in `specs/001-employee-crud/quickstart.md`
-- [ ] T069 Review implemented behavior against FR-001 through FR-016 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
+- [X] T062 [P] Add backend README commands for tests and local run in `backend/README.md`
+- [X] T063 [P] Add frontend README commands for tests, build, and local run in `frontend/README.md`
+- [X] T064 Update root README with local demo startup sequence and feature overview in `README.md`
+- [X] T065 Verify GitHub Actions backend test and frontend test/build jobs in `.github/workflows/ci.yml`
+- [X] T066 Add quickstart validation notes for final command names and expected local URLs in `specs/001-employee-crud/quickstart.md`
+- [X] T067 Run backend test suite and document any required follow-up in `specs/001-employee-crud/quickstart.md`
+- [X] T068 Run frontend test/build suite and document any required follow-up in `specs/001-employee-crud/quickstart.md`
+- [X] T069 Review implemented behavior against FR-001 through FR-016 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
 
 ---
 
