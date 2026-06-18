@@ -30,6 +30,9 @@ employee list after the save.
 2. **Given** the user is on the employee page, **When** they attempt to save an
    employee with missing or invalid required information, **Then** the employee
    is not saved and the page identifies the fields that need correction.
+3. **Given** the user is adding an employee, **When** they focus or type in the
+   employee name or email address fields, **Then** the browser does not show
+   saved autofill or autocomplete suggestions for those fields.
 
 ---
 
@@ -74,6 +77,10 @@ in the current employee list.
 2. **Given** an employee exists, **When** the user attempts to save invalid
    edits, **Then** the existing employee record remains unchanged and the page
    identifies the fields that need correction.
+3. **Given** an employee exists and the user is editing that employee, **When**
+   they focus or type in the employee name or email address fields, **Then** the
+   browser does not show saved autofill or autocomplete suggestions for those
+   fields.
 
 ---
 
@@ -112,6 +119,7 @@ confirming the employee no longer appears in the current employee list.
   it was already removed.
 - Saving, updating, loading, or deleting employees fails unexpectedly.
 - The employee list is empty.
+- The browser has previously saved names or email addresses from other pages.
 
 ## Requirements *(mandatory)*
 
@@ -150,6 +158,9 @@ confirming the employee no longer appears in the current employee list.
 - **FR-016**: The system MUST complete each create, view, edit, and remove
   workflow from the web page without requiring direct database access or manual
   data entry outside the page.
+- **FR-017**: The system MUST disable browser autofill and autocomplete
+  suggestions for all employee data entry forms, including employee creation and
+  employee editing.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -174,6 +185,8 @@ confirming the employee no longer appears in the current employee list.
 - **SC-006**: 100% of successful create, update, and delete actions are reflected
   in the employee list without requiring the user to manually inspect the
   database.
+- **SC-007**: During create and edit workflows, 100% of checks on employee name
+  and email address fields show no browser autofill or autocomplete suggestions.
 
 ## Assumptions
 

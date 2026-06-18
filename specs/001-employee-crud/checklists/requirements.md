@@ -34,3 +34,7 @@
 - Validation completed on 2026-06-18. No blocking clarification items remain.
 - Implementation acceptance reviewed on 2026-06-18 against FR-001 through
   FR-016. Backend tests, frontend tests, and frontend build passed.
+- Specification updated on 2026-06-18 to add FR-017 requiring employee forms to
+  disable browser autofill/autocomplete, with create and edit acceptance
+  scenarios covering name and email fields. Checklist remains passing with no
+  clarification markers.
