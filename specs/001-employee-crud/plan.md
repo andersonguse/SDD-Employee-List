@@ -27,7 +27,8 @@ employee IDs use a simple auto-generated incrementing numeric value
 
 **Testing**: JUnit 5, Spring Boot Test, MockMvc or WebTestClient for REST
 behavior, Testcontainers or a CI PostgreSQL service for persistence behavior,
-Vitest and React Testing Library for frontend behavior
+Vitest and React Testing Library for frontend behavior, including checks that
+employee form fields expose disabled browser autocomplete behavior
 
 **Target Platform**: Local developer machine for interview demonstration;
 GitHub Actions for pull/push validation only
@@ -40,7 +41,8 @@ immediately after opening the page
 
 **Constraints**: No authentication or authorization; local-only deployment;
 simple maintainable architecture; database must run through Docker; CI/CD must
-avoid cloud deployment assumptions
+avoid cloud deployment assumptions; employee create and edit forms must disable
+browser autofill/autocomplete using the lightest browser-native approach
 
 **Scale/Scope**: Single-user demonstration app for managing a small employee
 list, expected to handle dozens to hundreds of records comfortably
@@ -62,7 +64,7 @@ list, expected to handle dozens to hundreds of records comfortably
 - Testability: PASS. Backend service/API/persistence tests and frontend UI tests
   are planned, with CI running useful automated checks.
 - Traceability: PASS. Plan, research, data model, contracts, and quickstart map
-  back to feature requirements FR-001 through FR-016.
+  back to feature requirements FR-001 through FR-017.
 - Verification: PASS. Quickstart scenarios and CI checks provide acceptance
   review evidence before code is accepted.
 - Clarifications: PASS. No unresolved `NEEDS CLARIFICATION` markers remain.
@@ -133,6 +135,11 @@ owns Spring Boot REST, business rules, validation, and persistence.
 `frontend/` owns the browser experience and calls the backend through the API
 contract. `docker-compose.yml` owns local PostgreSQL startup. `.github/workflows`
 owns validation-only CI.
+
+**Autofill Decision**: Implement FR-017 in `frontend/src/components/EmployeeForm.tsx`
+using standard HTML `autocomplete` attributes on the employee form and its input
+fields. Do not add JavaScript autofill suppression unless validation shows the
+browser-native approach fails for the target local demo browser.
 
 ## Complexity Tracking
 

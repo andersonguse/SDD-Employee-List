@@ -113,3 +113,22 @@ still demonstrating a realistic application split.
   local code demonstration.
 - One combined command for everything: deferred until implementation proves it
   would simplify the demo without hiding important behavior.
+
+## Decision: Browser Autofill Prevention
+
+Use standard HTML `autocomplete` attributes on the employee form and its name,
+email, and phone input fields, with no additional JavaScript state or event
+handlers unless manual testing proves a target browser still shows suggestions.
+
+**Rationale**: HTML attributes are the least memory-intensive and fastest
+approach because the browser handles the behavior natively. This satisfies the
+requirement without adding frontend runtime logic, dependencies, or extra
+component state.
+
+**Alternatives considered**:
+- JavaScript field randomization or hidden decoy inputs: rejected because it is
+  more complex, harder to explain, and adds runtime behavior for a simple local
+  demo.
+- Browser-specific workarounds: rejected for the first implementation because
+  they should only be added if validation shows native attributes are
+  insufficient.

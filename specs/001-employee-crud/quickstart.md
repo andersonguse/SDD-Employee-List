@@ -90,6 +90,19 @@ new employee to be added.
 Expected result: The list shows updated values, and the employee ID remains the
 same.
 
+### Disable Browser Autofill
+
+1. Use a browser profile that has saved names or email addresses from prior
+   form entries.
+2. Open the employee page and focus the name and email fields in the add
+   employee form.
+3. Select an existing employee for editing and focus the name and email fields
+   in the edit employee form.
+
+Expected result: The browser does not show saved autofill or autocomplete
+suggestions for the employee name or email fields in either create or edit
+mode.
+
 ### Reject Invalid Edit
 
 1. Select an existing employee.
