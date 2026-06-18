@@ -1,25 +1,25 @@
 <!--
 Sync Impact Report
-Version change: 1.1.0 -> 2.0.0
+Version change: 2.0.0 -> 2.0.1
 Modified principles:
-- I. Spec-Driven Demonstrability -> I. Specification First
-- II. Spring Boot Boundary Discipline -> II. Simplicity
-- III. Test-First Implementation -> III. Layered Architecture
-- IV. Employee Data Integrity and Privacy -> IV. Data Integrity
-- V. Simple, Observable Demo Operations -> V. Testability
-- Added VI. Traceability
-- Added VII. Verification
+- I. Specification First: clarified approval authority
+- II. Simplicity: unchanged
+- III. Layered Architecture: unchanged
+- IV. Data Integrity: unchanged
+- V. Testability: unchanged
+- VI. Traceability: unchanged
+- VII. Verification: unchanged
 Added sections:
 - None
 Removed sections:
-- Technology Constraints
+- None
 Templates requiring updates:
-- updated: .specify/templates/plan-template.md
-- updated: .specify/templates/spec-template.md
-- updated: .specify/templates/tasks-template.md
+- no changes required: .specify/templates/plan-template.md
+- no changes required: .specify/templates/spec-template.md
+- no changes required: .specify/templates/tasks-template.md
 - not present: .specify/templates/commands/*.md
 Follow-up NEEDS CLARIFICATION items:
-- NEEDS CLARIFICATION(APPROVAL_AUTHORITY): Confirm who approves specifications and acceptance criteria before implementation.
+- None
 -->
 # SDD Employee List Constitution
 
@@ -30,10 +30,8 @@ Requirements and acceptance criteria MUST be documented and approved before
 implementation begins. Specifications MUST identify user journeys, functional
 requirements, acceptance scenarios, edge cases, and success criteria at a level
 that allows implementation work to proceed without guessing about intended
-behavior.
-
-NEEDS CLARIFICATION(APPROVAL_AUTHORITY): Confirm who approves specifications and
-acceptance criteria before implementation.
+behavior. The project owner, Anderson Guse, is the approval authority for
+specifications and acceptance criteria.
 
 Rationale: Spec Driven Development depends on shared agreement about what will
 be built before deciding how to build it.
@@ -130,4 +128,4 @@ Compliance exceptions MUST be documented in the feature plan's Complexity
 Tracking section with the reason, rejected simpler alternative, and any follow-up
 needed to return to compliance.
 
-**Version**: 2.0.0 | **Ratified**: 2026-06-18 | **Last Amended**: 2026-06-18
+**Version**: 2.0.1 | **Ratified**: 2026-06-18 | **Last Amended**: 2026-06-18
