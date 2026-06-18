@@ -183,15 +183,15 @@ and confirm no saved browser suggestions are shown.
 
 ### Tests for FR-017
 
-- [ ] T070 [P] [US1] Add EmployeeForm create-mode tests asserting the form and employee name/email inputs expose disabled autocomplete behavior in `frontend/src/components/EmployeeForm.test.tsx`
-- [ ] T071 [P] [US3] Add EmployeeForm edit-mode tests asserting the form and employee name/email inputs expose disabled autocomplete behavior in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T070 [P] [US1] Add EmployeeForm create-mode tests asserting the form and employee name/email inputs expose disabled autocomplete behavior in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T071 [P] [US3] Add EmployeeForm edit-mode tests asserting the form and employee name/email inputs expose disabled autocomplete behavior in `frontend/src/components/EmployeeForm.test.tsx`
 
 ### Implementation for FR-017
 
-- [ ] T072 [US1] Add native HTML autocomplete attributes to the EmployeeForm create-mode form and name/email/phone inputs in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T073 [US3] Verify the same EmployeeForm native HTML autocomplete attributes apply when the component renders in edit mode in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T074 Run frontend tests and build from `frontend/` and document the FR-017 validation result in `specs/001-employee-crud/quickstart.md`
-- [ ] T075 Review implemented behavior against FR-017 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
+- [X] T072 [US1] Add native HTML autocomplete attributes to the EmployeeForm create-mode form and name/email/phone inputs in `frontend/src/components/EmployeeForm.tsx`
+- [X] T073 [US3] Verify the same EmployeeForm native HTML autocomplete attributes apply when the component renders in edit mode in `frontend/src/components/EmployeeForm.tsx`
+- [X] T074 Run frontend tests and build from `frontend/` and document the FR-017 validation result in `specs/001-employee-crud/quickstart.md`
+- [X] T075 Review implemented behavior against FR-017 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
 
 **Checkpoint**: Employee create and edit forms satisfy FR-017 and the quickstart
 autofill validation scenario is documented.

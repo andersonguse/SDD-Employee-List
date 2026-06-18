@@ -141,6 +141,10 @@ Validated on 2026-06-18:
 - Backend: `mvn test` passed from `backend/`.
 - Frontend: `npm test` passed from `frontend/`.
 - Frontend: `npm run build` passed from `frontend/`.
+- FR-017 frontend validation: `npm test -- EmployeeForm.test.tsx`, `npm test`,
+  and `npm run build` passed from `frontend/`. Automated component tests verify
+  the add and edit employee forms expose disabled browser autocomplete behavior
+  on the form and name, email, and phone fields.
 
 Note: Docker was available as a CLI, but the local Docker daemon was not
 available to automated tests in this environment. Backend tests therefore use an

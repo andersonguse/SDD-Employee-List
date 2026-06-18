@@ -38,3 +38,5 @@
   disable browser autofill/autocomplete, with create and edit acceptance
   scenarios covering name and email fields. Checklist remains passing with no
   clarification markers.
+- Implementation acceptance reviewed on 2026-06-18 against FR-017. Frontend
+  targeted component tests, full frontend tests, and frontend build passed.

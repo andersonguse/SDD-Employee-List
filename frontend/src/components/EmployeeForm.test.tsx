@@ -43,6 +43,26 @@ describe('EmployeeForm', () => {
     expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-invalid', 'true');
   });
 
+  it('disables browser autocomplete for create mode employee fields', () => {
+    render(
+      <EmployeeForm
+        selectedEmployee={null}
+        fieldErrors={{}}
+        isSaving={false}
+        onSubmit={vi.fn()}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole('form', { name: /add employee/i })).toHaveAttribute(
+      'autocomplete',
+      'off',
+    );
+    expect(screen.getByLabelText(/name/i)).toHaveAttribute('autocomplete', 'off');
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('autocomplete', 'off');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('autocomplete', 'off');
+  });
+
   it('prefills edit values and cancels edit mode', async () => {
     const onCancelEdit = vi.fn();
     render(
@@ -58,5 +78,25 @@ describe('EmployeeForm', () => {
     expect(screen.getByLabelText(/name/i)).toHaveValue('Ada');
     await userEvent.click(screen.getByRole('button', { name: /cancel/i }));
     expect(onCancelEdit).toHaveBeenCalled();
+  });
+
+  it('disables browser autocomplete for edit mode employee fields', () => {
+    render(
+      <EmployeeForm
+        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-0100' }}
+        fieldErrors={{}}
+        isSaving={false}
+        onSubmit={vi.fn()}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole('form', { name: /edit employee/i })).toHaveAttribute(
+      'autocomplete',
+      'off',
+    );
+    expect(screen.getByLabelText(/name/i)).toHaveAttribute('autocomplete', 'off');
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('autocomplete', 'off');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('autocomplete', 'off');
   });
 });
