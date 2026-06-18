@@ -172,6 +172,32 @@
 
 ---
 
+## Phase 8: Cross-Story Change - Disable Browser Autofill (FR-017)
+
+**Purpose**: Add the approved browser autofill/autocomplete prevention behavior
+for employee create and edit forms using native HTML attributes.
+
+**Independent Test**: With a browser profile that has saved names or email
+addresses, focus the name and email fields in both add and edit employee forms
+and confirm no saved browser suggestions are shown.
+
+### Tests for FR-017
+
+- [ ] T070 [P] [US1] Add EmployeeForm create-mode tests asserting the form and employee name/email inputs expose disabled autocomplete behavior in `frontend/src/components/EmployeeForm.test.tsx`
+- [ ] T071 [P] [US3] Add EmployeeForm edit-mode tests asserting the form and employee name/email inputs expose disabled autocomplete behavior in `frontend/src/components/EmployeeForm.test.tsx`
+
+### Implementation for FR-017
+
+- [ ] T072 [US1] Add native HTML autocomplete attributes to the EmployeeForm create-mode form and name/email/phone inputs in `frontend/src/components/EmployeeForm.tsx`
+- [ ] T073 [US3] Verify the same EmployeeForm native HTML autocomplete attributes apply when the component renders in edit mode in `frontend/src/components/EmployeeForm.tsx`
+- [ ] T074 Run frontend tests and build from `frontend/` and document the FR-017 validation result in `specs/001-employee-crud/quickstart.md`
+- [ ] T075 Review implemented behavior against FR-017 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
+
+**Checkpoint**: Employee create and edit forms satisfy FR-017 and the quickstart
+autofill validation scenario is documented.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -183,6 +209,8 @@
 - **User Story 3 (Phase 5)**: Depends on Foundational and benefits from US2 table/list UI.
 - **User Story 4 (Phase 6)**: Depends on Foundational and benefits from US2 table/list UI.
 - **Polish (Phase 7)**: Depends on desired user stories being complete.
+- **Autofill Change (Phase 8)**: Depends on the shared EmployeeForm create and
+  edit modes from US1 and US3.
 
 ### User Story Dependencies
 
@@ -190,6 +218,8 @@
 - **US2 View Current Employees (P1)**: Can start after Foundational. Independent from create when tested with seeded data, but combined with US1 for MVP demo.
 - **US3 Edit Employee (P2)**: Can start after Foundational. Uses EmployeeForm and EmployeeTable patterns from US1/US2 when available.
 - **US4 Remove Employee (P2)**: Can start after Foundational. Uses EmployeeTable list state from US2 when available.
+- **FR-017 Disable Browser Autofill**: Can start after EmployeeForm supports
+  both create and edit modes. It maps to US1 and US3 acceptance scenarios.
 
 ### Within Each User Story
 
@@ -208,6 +238,9 @@
 - For each story, service tests, controller integration tests, frontend API tests, and component tests are parallelizable because they touch different test files.
 - US3 and US4 can be implemented in parallel after US2 establishes the table/list pattern, with coordination on `frontend/src/App.tsx`.
 - Polish documentation tasks T062 and T063 can run in parallel.
+- FR-017 tests T070 and T071 can be drafted together, but implementation tasks
+  T072 and T073 both touch `frontend/src/components/EmployeeForm.tsx` and should
+  be coordinated in one edit.
 
 ## Parallel Example: User Story 1
 
@@ -248,9 +281,9 @@ Task: T035 [P] [US2] Add frontend list API client tests in frontend/src/api/empl
 
 | Story | Requirements | Key Tasks |
 |-------|--------------|-----------|
-| US1 Add Employee | FR-003, FR-004, FR-008, FR-009, FR-010, FR-011, FR-012, FR-015, FR-016 | T022-T031 |
+| US1 Add Employee | FR-003, FR-004, FR-008, FR-009, FR-010, FR-011, FR-012, FR-015, FR-016, FR-017 | T022-T031, T070, T072 |
 | US2 View Current Employees | FR-001, FR-002, FR-005, FR-014, FR-015, FR-016 | T032-T041 |
-| US3 Edit Employee | FR-006, FR-008, FR-009, FR-010, FR-011, FR-012, FR-013, FR-015, FR-016 | T042-T051 |
+| US3 Edit Employee | FR-006, FR-008, FR-009, FR-010, FR-011, FR-012, FR-013, FR-015, FR-016, FR-017 | T042-T051, T071, T073 |
 | US4 Remove Employee | FR-007, FR-015, FR-016 | T052-T061 |
 
 ## Notes
