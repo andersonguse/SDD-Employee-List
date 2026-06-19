@@ -3,6 +3,14 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import EmployeeForm from './EmployeeForm';
 
+function expectAutofillSuppressed(input: HTMLElement) {
+  expect(input).toHaveAttribute('autocomplete', 'new-password');
+  expect(input).toHaveAttribute('data-lpignore', 'true');
+  expect(input).toHaveAttribute('data-form-type', 'other');
+  expect(input).toHaveAttribute('data-1p-ignore', 'true');
+  expect(input).toHaveAttribute('data-bwignore', 'true');
+}
+
 describe('EmployeeForm', () => {
   it('submits create values', async () => {
     const onSubmit = vi.fn().mockResolvedValue(undefined);
@@ -58,9 +66,15 @@ describe('EmployeeForm', () => {
       'autocomplete',
       'off',
     );
-    expect(screen.getByLabelText(/name/i)).toHaveAttribute('autocomplete', 'off');
-    expect(screen.getByLabelText(/email/i)).toHaveAttribute('autocomplete', 'off');
-    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('autocomplete', 'off');
+    expect(screen.getByRole('form', { name: /add employee/i })).toHaveAttribute(
+      'data-lpignore',
+      'true',
+    );
+    expectAutofillSuppressed(screen.getByLabelText(/name/i));
+    expectAutofillSuppressed(screen.getByLabelText(/email/i));
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('type', 'text');
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('inputmode', 'email');
+    expectAutofillSuppressed(screen.getByLabelText(/phone/i));
   });
 
   it('prefills edit values and cancels edit mode', async () => {
@@ -95,8 +109,14 @@ describe('EmployeeForm', () => {
       'autocomplete',
       'off',
     );
-    expect(screen.getByLabelText(/name/i)).toHaveAttribute('autocomplete', 'off');
-    expect(screen.getByLabelText(/email/i)).toHaveAttribute('autocomplete', 'off');
-    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('autocomplete', 'off');
+    expect(screen.getByRole('form', { name: /edit employee/i })).toHaveAttribute(
+      'data-lpignore',
+      'true',
+    );
+    expectAutofillSuppressed(screen.getByLabelText(/name/i));
+    expectAutofillSuppressed(screen.getByLabelText(/email/i));
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('type', 'text');
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('inputmode', 'email');
+    expectAutofillSuppressed(screen.getByLabelText(/phone/i));
   });
 });

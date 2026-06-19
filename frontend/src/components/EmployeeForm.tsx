@@ -15,6 +15,14 @@ const emptyForm: EmployeeInput = {
   phoneNumber: '',
 };
 
+const autofillSuppressionProps = {
+  autoComplete: 'new-password',
+  'data-lpignore': 'true',
+  'data-form-type': 'other',
+  'data-1p-ignore': 'true',
+  'data-bwignore': 'true',
+};
+
 export default function EmployeeForm({
   selectedEmployee,
   fieldErrors,
@@ -52,6 +60,8 @@ export default function EmployeeForm({
       onSubmit={handleSubmit}
       noValidate
       autoComplete="off"
+      data-lpignore="true"
+      data-form-type="other"
       aria-label={formLabel}
     >
       <div className="form-header">
@@ -66,7 +76,7 @@ export default function EmployeeForm({
       <label>
         <span>Name</span>
         <input
-          autoComplete="off"
+          {...autofillSuppressionProps}
           value={form.name}
           onChange={(event) => setForm({ ...form, name: event.target.value })}
           aria-invalid={Boolean(fieldErrors.name)}
@@ -78,8 +88,9 @@ export default function EmployeeForm({
       <label>
         <span>Email address</span>
         <input
-          type="email"
-          autoComplete="off"
+          type="text"
+          inputMode="email"
+          {...autofillSuppressionProps}
           value={form.email}
           onChange={(event) => setForm({ ...form, email: event.target.value })}
           aria-invalid={Boolean(fieldErrors.email)}
@@ -91,7 +102,7 @@ export default function EmployeeForm({
       <label>
         <span>Phone number</span>
         <input
-          autoComplete="off"
+          {...autofillSuppressionProps}
           value={form.phoneNumber}
           onChange={(event) => setForm({ ...form, phoneNumber: event.target.value })}
           aria-invalid={Boolean(fieldErrors.phoneNumber)}

@@ -145,6 +145,12 @@ Validated on 2026-06-18:
   and `npm run build` passed from `frontend/`. Automated component tests verify
   the add and edit employee forms expose disabled browser autocomplete behavior
   on the form and name, email, and phone fields.
+- FR-017 convergence validation: `npm test -- EmployeeForm.test.tsx`,
+  `npm test`, and `npm run build` passed from `frontend/` after adding stronger
+  Chrome and password-manager suppression attributes. Final Chrome plus
+  LastPass validation must be completed in the user's browser profile because
+  the local automated test environment does not include the user's LastPass
+  extension state.
 
 Note: Docker was available as a CLI, but the local Docker daemon was not
 available to automated tests in this environment. Backend tests therefore use an

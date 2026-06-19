@@ -40,3 +40,7 @@
   clarification markers.
 - Implementation acceptance reviewed on 2026-06-18 against FR-017. Frontend
   targeted component tests, full frontend tests, and frontend build passed.
+- Convergence review on 2026-06-18 found the initial FR-017 implementation was
+  insufficient in Google Chrome with LastPass enabled. Stronger suppression
+  attributes were added and automated frontend checks passed; final acceptance
+  remains pending manual validation in the user's Chrome profile with LastPass.
