@@ -145,6 +145,13 @@ Validated on 2026-06-18:
   and `npm run build` passed from `frontend/`. Automated component tests verify
   the add and edit employee forms expose disabled browser autocomplete behavior
   on the form and name, email, and phone fields.
+- FR-017 convergence validation: `npm test -- EmployeeForm.test.tsx`,
+  `npm test`, and `npm run build` passed from `frontend/` after adding stronger
+  Chrome autofill suppression attributes. Manual validation confirmed Google
+  Chrome autofill suggestions were disabled for the employee form fields.
+  Third-party password-manager extensions are excluded from FR-017 acceptance
+  because they can ignore page HTML/JavaScript and must be disabled or
+  configured at the extension level.
 
 Note: Docker was available as a CLI, but the local Docker daemon was not
 available to automated tests in this environment. Backend tests therefore use an

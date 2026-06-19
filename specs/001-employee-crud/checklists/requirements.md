@@ -40,3 +40,9 @@
   clarification markers.
 - Implementation acceptance reviewed on 2026-06-18 against FR-017. Frontend
   targeted component tests, full frontend tests, and frontend build passed.
+- Convergence review on 2026-06-19 found the initial FR-017 implementation was
+  insufficient in Google Chrome. Stronger suppression attributes were added,
+  automated frontend checks passed, and manual validation confirmed Google
+  Chrome autofill suggestions were disabled. Third-party password-manager
+  extensions are excluded from FR-017 acceptance because they can ignore page
+  HTML/JavaScript and must be disabled or configured at the extension level.
