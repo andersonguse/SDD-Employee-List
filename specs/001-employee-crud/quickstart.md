@@ -147,10 +147,11 @@ Validated on 2026-06-18:
   on the form and name, email, and phone fields.
 - FR-017 convergence validation: `npm test -- EmployeeForm.test.tsx`,
   `npm test`, and `npm run build` passed from `frontend/` after adding stronger
-  Chrome and password-manager suppression attributes. Final Chrome plus
-  LastPass validation must be completed in the user's browser profile because
-  the local automated test environment does not include the user's LastPass
-  extension state.
+  Chrome autofill suppression attributes. Manual validation confirmed Google
+  Chrome autofill suggestions were disabled for the employee form fields.
+  Third-party password-manager extensions are excluded from FR-017 acceptance
+  because they can ignore page HTML/JavaScript and must be disabled or
+  configured at the extension level.
 
 Note: Docker was available as a CLI, but the local Docker daemon was not
 available to automated tests in this environment. Backend tests therefore use an

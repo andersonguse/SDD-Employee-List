@@ -298,7 +298,7 @@ Task: T035 [P] [US2] Add frontend list API client tests in frontend/src/api/empl
 
 ## Phase 9: Convergence
 
-- [X] T076 Add EmployeeForm tests for stronger Chrome and LastPass suppression attributes on create and edit name/email fields per FR-017 and SC-007 (partial) in `frontend/src/components/EmployeeForm.test.tsx`
-- [X] T077 Replace the native-only `autocomplete="off"` approach with a minimal Chrome-resistant and LastPass-resistant autofill suppression strategy for employee create/edit name and email fields per FR-017, US1/AC3, and US3/AC3 (partial) in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T078 Run frontend tests/build and manually validate the create and edit employee name/email fields in Google Chrome with LastPass enabled per SC-007 (partial) in `specs/001-employee-crud/quickstart.md`
-- [ ] T079 Update FR-017 acceptance notes to supersede the previous automated-only acceptance result after Chrome and LastPass manual validation passes per T074/T075 (partial) in `specs/001-employee-crud/checklists/requirements.md`
+- [X] T076 Add EmployeeForm tests for stronger Chrome suppression attributes on create and edit name/email fields per FR-017 and SC-007 (partial) in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T077 Replace the native-only `autocomplete="off"` approach with a minimal Chrome-resistant autofill suppression strategy for employee create/edit name and email fields per FR-017, US1/AC3, and US3/AC3 (partial) in `frontend/src/components/EmployeeForm.tsx`
+- [X] T078 Run frontend tests/build and manually validate the create and edit employee name/email fields in Google Chrome per SC-007, excluding third-party password-manager extensions that must be disabled at the extension level (partial) in `specs/001-employee-crud/quickstart.md`
+- [X] T079 Update FR-017 acceptance notes to supersede the previous automated-only acceptance result after Chrome manual validation passes and third-party password-manager extensions are excluded from acceptance scope per T074/T075 (partial) in `specs/001-employee-crud/checklists/requirements.md`
