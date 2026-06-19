@@ -11,7 +11,7 @@ Represents a person tracked by the application.
 | id | Integer/Long | Yes | Auto-generated, incrementing primary identifier assigned on create |
 | name | Text | Yes | Trimmed, non-empty after trimming |
 | email | Text | Yes | Trimmed, valid email format, unique across employees |
-| phoneNumber | Text | Yes | Trimmed, 7 to 20 characters after removing spaces and common formatting; may include digits, spaces, parentheses, hyphens, periods, and one leading plus sign |
+| phoneNumber | Text | Yes | Trimmed, must match `123-456-7890` format exactly |
 
 ### Constraints
 
@@ -38,7 +38,7 @@ Validation failures should return field-specific messages for:
 - Missing or blank name
 - Missing or malformed email
 - Duplicate email
-- Missing or unsupported phone number
+- Missing phone number or phone number not in `123-456-7890` format
 
 Unexpected failures should return a general user-facing message without exposing
 database or stack details.

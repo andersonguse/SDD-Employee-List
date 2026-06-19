@@ -302,3 +302,39 @@ Task: T035 [P] [US2] Add frontend list API client tests in frontend/src/api/empl
 - [X] T077 Replace the native-only `autocomplete="off"` approach with a minimal Chrome-resistant autofill suppression strategy for employee create/edit name and email fields per FR-017, US1/AC3, and US3/AC3 (partial) in `frontend/src/components/EmployeeForm.tsx`
 - [X] T078 Run frontend tests/build and manually validate the create and edit employee name/email fields in Google Chrome per SC-007, excluding third-party password-manager extensions that must be disabled at the extension level (partial) in `specs/001-employee-crud/quickstart.md`
 - [X] T079 Update FR-017 acceptance notes to supersede the previous automated-only acceptance result after Chrome manual validation passes and third-party password-manager extensions are excluded from acceptance scope per T074/T075 (partial) in `specs/001-employee-crud/checklists/requirements.md`
+
+---
+
+## Phase 10: Cross-Story Change - Require 10-Digit Phone Format (FR-010)
+
+**Purpose**: Update employee phone validation, existing persisted data, and
+documentation so phone numbers are exactly 10 digits in `123-456-7890` format.
+
+**Independent Test**: Existing seven-digit phone numbers are converted by
+prefixing `770-`, valid `123-456-7890` values can be created and updated, and
+invalid phone values are rejected without changing persisted employee data.
+
+### Tests for FR-010
+
+- [X] T080 [P] [US1] Add EmployeeService create tests for accepting `123-456-7890` phone numbers and rejecting non-matching phone values in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T081 [P] [US3] Add EmployeeService update tests for accepting `123-456-7890` phone numbers and preserving existing data when phone values do not match the required format in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T082 [P] [US1] Add create employee REST integration tests for `123-456-7890` phone validation behavior in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T083 [P] [US3] Add update employee REST integration tests for `123-456-7890` phone validation behavior in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T084 [P] [US1] Add EmployeeForm create-mode tests for the `123-456-7890` phone requirement in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T085 [P] [US3] Add EmployeeForm edit-mode tests for the `123-456-7890` phone requirement in `frontend/src/components/EmployeeForm.test.tsx`
+
+### Implementation for FR-010
+
+- [X] T086 [US1] Update EmployeeRequest phone validation to require exactly `123-456-7890` format before employee creation in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRequest.java`
+- [X] T087 [US3] Verify EmployeeRequest phone validation applies to employee updates and preserves existing data on invalid phone input in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T088 Add a Flyway migration that updates existing seven-digit employee phone numbers to `770-` plus the original number and normalizes all existing employee phone numbers to the required 10-digit format in `backend/src/main/resources/db/migration/`
+- [X] T089 [US1] Update EmployeeForm create-mode phone input constraints, placeholder, and validation messaging for `123-456-7890` format in `frontend/src/components/EmployeeForm.tsx`
+- [X] T090 [US3] Update EmployeeForm edit-mode phone input behavior to use the same `123-456-7890` format guidance in `frontend/src/components/EmployeeForm.tsx`
+- [X] T091 Update data model phone rules to match FR-010 in `specs/001-employee-crud/data-model.md`
+- [X] T092 Update quickstart validation scenarios for required `123-456-7890` phone format and existing seven-digit data conversion in `specs/001-employee-crud/quickstart.md`
+- [X] T093 Run backend tests, frontend tests/build, and document FR-010 validation results in `specs/001-employee-crud/quickstart.md`
+- [X] T094 Review implemented behavior against FR-010 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
+
+**Checkpoint**: Employee phone numbers are accepted only in `123-456-7890`
+format, existing seven-digit values are prefixed with `770-`, and validation
+evidence is documented.

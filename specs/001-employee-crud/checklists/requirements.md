@@ -46,3 +46,10 @@
   Chrome autofill suggestions were disabled. Third-party password-manager
   extensions are excluded from FR-017 acceptance because they can ignore page
   HTML/JavaScript and must be disabled or configured at the extension level.
+- Specification updated on 2026-06-19 to require phone numbers to be exactly 10
+  digits in `123-456-7890` format. Checklist remains passing with no
+  clarification markers.
+- Implementation acceptance reviewed on 2026-06-19 against updated FR-010.
+  Backend tests, frontend tests, and frontend build passed. Existing seven-digit
+  phone conversion is covered by the new Flyway migration, and create/update
+  validation rejects phone numbers outside `123-456-7890` format.

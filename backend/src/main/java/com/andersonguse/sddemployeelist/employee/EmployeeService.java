@@ -11,6 +11,9 @@ import com.andersonguse.sddemployeelist.shared.NotFoundException;
 @Service
 public class EmployeeService {
 
+    private static final String PHONE_FORMAT_PATTERN = "\\d{3}-\\d{3}-\\d{4}";
+    private static final String PHONE_FORMAT_MESSAGE = "Phone number must be in 123-456-7890 format";
+
     private final EmployeeRepository employeeRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository) {
@@ -21,7 +24,7 @@ public class EmployeeService {
     public EmployeeResponse createEmployee(EmployeeRequest request) {
         String name = normalizeRequired(request.name());
         String email = normalizeEmail(request.email());
-        String phoneNumber = normalizeRequired(request.phoneNumber());
+        String phoneNumber = normalizePhoneNumber(request.phoneNumber());
 
         if (employeeRepository.existsByEmailIgnoreCase(email)) {
             throw new DuplicateEmailException("email", "Email address is already used by another employee");
@@ -49,7 +52,7 @@ public class EmployeeService {
         Employee employee = findEmployee(id);
         String name = normalizeRequired(request.name());
         String email = normalizeEmail(request.email());
-        String phoneNumber = normalizeRequired(request.phoneNumber());
+        String phoneNumber = normalizePhoneNumber(request.phoneNumber());
 
         if (employeeRepository.existsByEmailIgnoreCaseAndIdNot(email, id)) {
             throw new DuplicateEmailException("email", "Email address is already used by another employee");
@@ -74,6 +77,14 @@ public class EmployeeService {
 
     private String normalizeEmail(String value) {
         return normalizeRequired(value).toLowerCase();
+    }
+
+    private String normalizePhoneNumber(String value) {
+        String normalized = normalizeRequired(value);
+        if (!normalized.matches(PHONE_FORMAT_PATTERN)) {
+            throw new IllegalArgumentException(PHONE_FORMAT_MESSAGE);
+        }
+        return normalized;
     }
 
     private String normalizeRequired(String value) {

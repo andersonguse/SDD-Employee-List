@@ -33,6 +33,10 @@ employee list after the save.
 3. **Given** the user is adding an employee, **When** they focus or type in the
    employee name or email address fields, **Then** the browser does not show
    saved autofill or autocomplete suggestions for those fields.
+4. **Given** the user is on the employee page, **When** they attempt to save an
+   employee with a phone number that is not exactly in `123-456-7890` format,
+   **Then** the employee is not saved and the page identifies the phone number
+   field as needing correction.
 
 ---
 
@@ -81,6 +85,10 @@ in the current employee list.
    they focus or type in the employee name or email address fields, **Then** the
    browser does not show saved autofill or autocomplete suggestions for those
    fields.
+4. **Given** an employee exists, **When** the user attempts to update the
+   employee with a phone number that is not exactly in `123-456-7890` format,
+   **Then** the existing employee record remains unchanged and the page
+   identifies the phone number field as needing correction.
 
 ---
 
@@ -111,8 +119,8 @@ confirming the employee no longer appears in the current employee list.
   number.
 - The user submits an employee with an email address that is not in a valid email
   format.
-- The user submits an employee with a phone number that is too short, too long,
-  or contains unsupported characters.
+- The user submits an employee with a phone number that is not exactly 10 digits
+  in `123-456-7890` format.
 - The user attempts to create or update an employee using an email address that
   already belongs to another saved employee.
 - The user attempts to edit or remove an employee that no longer exists because
@@ -143,8 +151,8 @@ confirming the employee no longer appears in the current employee list.
   before an employee can be created or updated.
 - **FR-009**: The system MUST reject malformed email addresses before saving or
   updating an employee.
-- **FR-010**: The system MUST reject phone numbers that are too short, too long,
-  or contain unsupported characters before saving or updating an employee.
+- **FR-010**: The system MUST reject phone numbers that are not exactly 10
+  digits in `123-456-7890` format before saving or updating an employee.
 - **FR-011**: The system MUST prevent two saved employees from using the same
   email address.
 - **FR-012**: The system MUST show clear, field-specific validation messages when
@@ -181,7 +189,8 @@ confirming the employee no longer appears in the current employee list.
 - **SC-004**: A user can remove an employee in under 30 seconds after choosing
   the employee from the list.
 - **SC-005**: 100% of attempts to save missing or malformed required employee
-  information are rejected with a visible validation message.
+  information, including phone numbers not in `123-456-7890` format, are
+  rejected with a visible validation message.
 - **SC-006**: 100% of successful create, update, and delete actions are reflected
   in the employee list without requiring the user to manually inspect the
   database.
@@ -194,8 +203,7 @@ confirming the employee no longer appears in the current employee list.
 - The application is intended for demonstration use, so no authentication,
   authorization, audit history, or multi-user permission model is included.
 - Employee email addresses are unique within the application.
-- Phone numbers may include common formatting characters such as spaces,
-  parentheses, hyphens, periods, and a leading plus sign.
+- Phone numbers must be entered and stored in `123-456-7890` format.
 - Deleting an employee removes the employee from the current employee list; no
   recovery workflow is required for this feature.
 - The web page is the primary user interface for all employee CRUD actions.

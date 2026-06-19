@@ -26,13 +26,13 @@ describe('EmployeeForm', () => {
 
     await userEvent.type(screen.getByLabelText(/name/i), 'Ada Lovelace');
     await userEvent.type(screen.getByLabelText(/email/i), 'ada@example.com');
-    await userEvent.type(screen.getByLabelText(/phone/i), '555-0100');
+    await userEvent.type(screen.getByLabelText(/phone/i), '555-010-0100');
     await userEvent.click(screen.getByRole('button', { name: /add employee/i }));
 
     expect(onSubmit).toHaveBeenCalledWith({
       name: 'Ada Lovelace',
       email: 'ada@example.com',
-      phoneNumber: '555-0100',
+      phoneNumber: '555-010-0100',
     });
   });
 
@@ -49,6 +49,23 @@ describe('EmployeeForm', () => {
 
     expect(screen.getByText('Email is invalid')).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('shows phone format guidance in create mode', () => {
+    render(
+      <EmployeeForm
+        selectedEmployee={null}
+        fieldErrors={{}}
+        isSaving={false}
+        onSubmit={vi.fn()}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('type', 'tel');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('inputmode', 'numeric');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('placeholder', '123-456-7890');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('pattern', '\\d{3}-\\d{3}-\\d{4}');
   });
 
   it('disables browser autocomplete for create mode employee fields', () => {
@@ -81,7 +98,7 @@ describe('EmployeeForm', () => {
     const onCancelEdit = vi.fn();
     render(
       <EmployeeForm
-        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-0100' }}
+        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }}
         fieldErrors={{}}
         isSaving={false}
         onSubmit={vi.fn()}
@@ -94,10 +111,27 @@ describe('EmployeeForm', () => {
     expect(onCancelEdit).toHaveBeenCalled();
   });
 
+  it('shows phone format guidance in edit mode', () => {
+    render(
+      <EmployeeForm
+        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }}
+        fieldErrors={{}}
+        isSaving={false}
+        onSubmit={vi.fn()}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('type', 'tel');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('inputmode', 'numeric');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('placeholder', '123-456-7890');
+    expect(screen.getByLabelText(/phone/i)).toHaveAttribute('pattern', '\\d{3}-\\d{3}-\\d{4}');
+  });
+
   it('disables browser autocomplete for edit mode employee fields', () => {
     render(
       <EmployeeForm
-        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-0100' }}
+        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }}
         fieldErrors={{}}
         isSaving={false}
         onSubmit={vi.fn()}

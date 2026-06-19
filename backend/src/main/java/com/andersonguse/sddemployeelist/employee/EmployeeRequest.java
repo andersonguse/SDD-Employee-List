@@ -3,7 +3,6 @@ package com.andersonguse.sddemployeelist.employee;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 public record EmployeeRequest(
         @NotBlank(message = "Name is required")
@@ -14,8 +13,7 @@ public record EmployeeRequest(
         String email,
 
         @NotBlank(message = "Phone number is required")
-        @Size(min = 7, max = 30, message = "Phone number must be between 7 and 30 characters")
-        @Pattern(regexp = "^\\+?[0-9 .()\\-]+$", message = "Phone number contains unsupported characters")
+        @Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Phone number must be in 123-456-7890 format")
         String phoneNumber
 ) {
 }

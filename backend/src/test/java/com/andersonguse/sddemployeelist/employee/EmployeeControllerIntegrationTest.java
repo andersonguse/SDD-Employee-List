@@ -37,14 +37,14 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
         mockMvc.perform(post("/api/employees")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name":"Ada Lovelace","email":"ada@example.com","phoneNumber":"555-0100"}
+                                {"name":"Ada Lovelace","email":"ada@example.com","phoneNumber":"555-010-0100"}
                                 """))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("Ada Lovelace"))
                 .andExpect(jsonPath("$.email").value("ada@example.com"))
-                .andExpect(jsonPath("$.phoneNumber").value("555-0100"));
+                .andExpect(jsonPath("$.phoneNumber").value("555-010-0100"));
     }
 
     @Test
@@ -61,13 +61,24 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void rejectsCreateWithSevenDigitPhone() throws Exception {
+        mockMvc.perform(post("/api/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name":"Ada Lovelace","email":"ada@example.com","phoneNumber":"555-0100"}
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.phoneNumber").exists());
+    }
+
+    @Test
     void rejectsDuplicateCreate() throws Exception {
-        saveEmployee("Ada Lovelace", "ada@example.com", "555-0100");
+        saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
 
         mockMvc.perform(post("/api/employees")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name":"Ada Byron","email":"ADA@example.com","phoneNumber":"555-0101"}
+                                {"name":"Ada Byron","email":"ADA@example.com","phoneNumber":"555-010-0101"}
                                 """))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.fieldErrors.email").exists());
@@ -75,7 +86,7 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
 
     @Test
     void listsEmployees() throws Exception {
-        saveEmployee("Ada Lovelace", "ada@example.com", "555-0100");
+        saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
 
         mockMvc.perform(get("/api/employees"))
                 .andExpect(status().isOk())
@@ -92,22 +103,23 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
 
     @Test
     void updatesEmployee() throws Exception {
-        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-0100");
+        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
 
         mockMvc.perform(put("/api/employees/{id}", employee.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name":"Ada Byron","email":"ada.byron@example.com","phoneNumber":"555-0200"}
+                                {"name":"Ada Byron","email":"ada.byron@example.com","phoneNumber":"555-020-0200"}
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(employee.getId()))
                 .andExpect(jsonPath("$.name").value("Ada Byron"))
-                .andExpect(jsonPath("$.email").value("ada.byron@example.com"));
+                .andExpect(jsonPath("$.email").value("ada.byron@example.com"))
+                .andExpect(jsonPath("$.phoneNumber").value("555-020-0200"));
     }
 
     @Test
     void rejectsInvalidUpdate() throws Exception {
-        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-0100");
+        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
 
         mockMvc.perform(put("/api/employees/{id}", employee.getId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -121,24 +133,37 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void rejectsUpdateWithSevenDigitPhone() throws Exception {
+        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
+
+        mockMvc.perform(put("/api/employees/{id}", employee.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name":"Ada Byron","email":"ada.byron@example.com","phoneNumber":"555-0100"}
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.phoneNumber").exists());
+    }
+
+    @Test
     void returnsNotFoundForMissingUpdate() throws Exception {
         mockMvc.perform(put("/api/employees/{id}", 999L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name":"Missing","email":"missing@example.com","phoneNumber":"555-9999"}
+                                {"name":"Missing","email":"missing@example.com","phoneNumber":"555-999-9999"}
                                 """))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void rejectsDuplicateUpdate() throws Exception {
-        saveEmployee("Ada Lovelace", "ada@example.com", "555-0100");
-        Employee grace = saveEmployee("Grace Hopper", "grace@example.com", "555-0101");
+        saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
+        Employee grace = saveEmployee("Grace Hopper", "grace@example.com", "555-010-0101");
 
         mockMvc.perform(put("/api/employees/{id}", grace.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name":"Grace Hopper","email":"ada@example.com","phoneNumber":"555-2222"}
+                                {"name":"Grace Hopper","email":"ada@example.com","phoneNumber":"555-222-2222"}
                                 """))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.fieldErrors.email").exists());
@@ -146,7 +171,7 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
 
     @Test
     void deletesEmployee() throws Exception {
-        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-0100");
+        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
 
         mockMvc.perform(delete("/api/employees/{id}", employee.getId()))
                 .andExpect(status().isNoContent());

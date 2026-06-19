@@ -140,8 +140,10 @@ components:
           format: email
         phoneNumber:
           type: string
-          minLength: 7
-          maxLength: 30
+          minLength: 12
+          maxLength: 12
+          pattern: "^\\d{3}-\\d{3}-\\d{4}$"
+          example: "123-456-7890"
     EmployeeInput:
       type: object
       required:
@@ -157,8 +159,10 @@ components:
           format: email
         phoneNumber:
           type: string
-          minLength: 7
-          maxLength: 30
+          minLength: 12
+          maxLength: 12
+          pattern: "^\\d{3}-\\d{3}-\\d{4}$"
+          example: "123-456-7890"
     ValidationError:
       type: object
       required:

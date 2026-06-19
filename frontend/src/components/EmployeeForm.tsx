@@ -102,6 +102,11 @@ export default function EmployeeForm({
       <label>
         <span>Phone number</span>
         <input
+          type="tel"
+          inputMode="numeric"
+          placeholder="123-456-7890"
+          pattern="\d{3}-\d{3}-\d{4}"
+          title="Phone number must be in 123-456-7890 format"
           {...autofillSuppressionProps}
           value={form.phoneNumber}
           onChange={(event) => setForm({ ...form, phoneNumber: event.target.value })}

@@ -66,12 +66,22 @@ Expected local URLs:
 ### Add Employee
 
 1. Open the employee page.
-2. Enter a name, email address, and phone number.
+2. Enter a name, email address, and phone number in `123-456-7890` format.
 3. Save the employee.
 4. Confirm the employee appears in the list with an auto-generated numeric ID.
 5. Refresh the page and confirm the employee still appears.
 
 Expected result: The employee is persisted and visible after refresh.
+
+### Reject Invalid Phone Number
+
+1. Open the employee page.
+2. Enter a name, email address, and a phone number that is not in
+   `123-456-7890` format, such as `555-0100`.
+3. Attempt to save the employee.
+
+Expected result: The app shows a phone-specific validation message and does
+not save the employee.
 
 ### View Empty List
 
@@ -89,6 +99,25 @@ new employee to be added.
 
 Expected result: The list shows updated values, and the employee ID remains the
 same.
+
+### Reject Invalid Phone Edit
+
+1. Select an existing employee.
+2. Change the phone number to a value that is not in `123-456-7890` format.
+3. Attempt to save the changes.
+
+Expected result: The app shows a phone-specific validation message, and the
+previously saved employee values remain unchanged.
+
+### Existing Seven-Digit Phone Conversion
+
+1. Start with an existing employee row whose `phone_number` value has only
+   seven digits, such as `555-0100`.
+2. Start the backend so Flyway applies database migrations.
+3. View the employee list.
+
+Expected result: The existing seven-digit value is converted by prefixing
+`770-`, for example `555-0100` becomes `770-555-0100`.
 
 ### Disable Browser Autofill
 
@@ -152,6 +181,11 @@ Validated on 2026-06-18:
   Third-party password-manager extensions are excluded from FR-017 acceptance
   because they can ignore page HTML/JavaScript and must be disabled or
   configured at the extension level.
+- FR-010 phone-format validation on 2026-06-19: `mvn test` passed from
+  `backend/`, including service/API rejection of seven-digit phone numbers and
+  Flyway application of `V2__normalize_employee_phone_numbers.sql`. `npm test`
+  and `npm run build` passed from `frontend/`, including create/edit form
+  guidance for `123-456-7890` phone input.
 
 Note: Docker was available as a CLI, but the local Docker daemon was not
 available to automated tests in this environment. Backend tests therefore use an

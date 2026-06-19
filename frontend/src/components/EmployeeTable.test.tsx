@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import EmployeeTable from './EmployeeTable';
 
 const employees = [
-  { id: 1, name: 'Ada Lovelace', email: 'ada@example.com', phoneNumber: '555-0100' },
+  { id: 1, name: 'Ada Lovelace', email: 'ada@example.com', phoneNumber: '555-010-0100' },
 ];
 
 describe('EmployeeTable', () => {
@@ -13,7 +13,7 @@ describe('EmployeeTable', () => {
 
     expect(screen.getByText('Ada Lovelace')).toBeInTheDocument();
     expect(screen.getByText('ada@example.com')).toBeInTheDocument();
-    expect(screen.getByText('555-0100')).toBeInTheDocument();
+    expect(screen.getByText('555-010-0100')).toBeInTheDocument();
   });
 
   it('renders an empty state', () => {
