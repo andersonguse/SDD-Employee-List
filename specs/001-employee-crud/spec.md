@@ -235,9 +235,9 @@ confirming the employee no longer appears in the current employee list.
 - **SC-004**: A user can remove an employee in under 30 seconds after choosing
   the employee from the list.
 - **SC-005**: 100% of attempts to save missing or malformed required employee
-  information, including names with numbers, names with punctuation, and phone
-  numbers not in `123-456-7890` format, are rejected with a visible validation
-  message.
+  information, including names with numbers, punctuation, accented letters, or
+  symbols and phone numbers not in `123-456-7890` format, are rejected with a
+  visible validation message.
 - **SC-006**: 100% of successful create, update, and delete actions are reflected
   in the employee list without requiring the user to manually inspect the
   database.
