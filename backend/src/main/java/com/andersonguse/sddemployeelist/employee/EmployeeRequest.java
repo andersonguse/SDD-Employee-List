@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record EmployeeRequest(
         @NotBlank(message = "Name is required")
+        @Pattern(regexp = "^[A-Za-z ]+$", message = "Name may contain English letters and spaces only")
         String name,
 
         @NotBlank(message = "Email address is required")

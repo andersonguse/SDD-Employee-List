@@ -46,13 +46,31 @@ class EmployeeServiceTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void rejectsInvalidNamesOnCreate() {
+        assertThatThrownBy(() -> employeeService.createEmployee(
+                new EmployeeRequest("Ada 2", "ada2@example.com", "555-010-0100")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Name may contain English letters and spaces only");
+
+        assertThatThrownBy(() -> employeeService.createEmployee(
+                new EmployeeRequest("Ada-Lovelace", "ada.hyphen@example.com", "555-010-0101")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Name may contain English letters and spaces only");
+
+        assertThatThrownBy(() -> employeeService.createEmployee(
+                new EmployeeRequest("Émilie", "emilie@example.com", "555-010-0102")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Name may contain English letters and spaces only");
+    }
+
+    @Test
     void rejectsDuplicateEmailOnCreate() {
         employeeService.createEmployee(new EmployeeRequest("Ada Lovelace", "ada@example.com", "555-010-0100"));
 
         assertThatThrownBy(() -> employeeService.createEmployee(
                 new EmployeeRequest("Grace Hopper", "ADA@example.com", "555-010-0101")))
                 .isInstanceOf(DuplicateEmailException.class)
-                .hasMessageContaining("already used");
+                .hasMessageContaining("Cannot use existing email");
     }
 
     @Test
@@ -93,6 +111,22 @@ class EmployeeServiceTest extends PostgresIntegrationTest {
                 new EmployeeRequest("Ada Byron", "ada.byron@example.com", "555-0200")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Phone number must be in 123-456-7890 format");
+
+        EmployeeResponse unchanged = employeeService.getEmployee(created.id());
+        assertThat(unchanged.name()).isEqualTo("Ada");
+        assertThat(unchanged.email()).isEqualTo("ada@example.com");
+        assertThat(unchanged.phoneNumber()).isEqualTo("555-010-0100");
+    }
+
+    @Test
+    void rejectsInvalidNamesOnUpdateAndKeepsExistingValues() {
+        EmployeeResponse created = employeeService.createEmployee(new EmployeeRequest("Ada", "ada@example.com", "555-010-0100"));
+
+        assertThatThrownBy(() -> employeeService.updateEmployee(
+                created.id(),
+                new EmployeeRequest("Ada 2", "ada.byron@example.com", "555-020-0200")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Name may contain English letters and spaces only");
 
         EmployeeResponse unchanged = employeeService.getEmployee(created.id());
         assertThat(unchanged.name()).isEqualTo("Ada");

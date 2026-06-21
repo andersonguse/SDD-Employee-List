@@ -5,7 +5,7 @@ type EmployeeFormProps = {
   selectedEmployee: Employee | null;
   fieldErrors: ApiError['fieldErrors'];
   isSaving: boolean;
-  onSubmit: (input: EmployeeInput) => Promise<void>;
+  onSubmit: (input: EmployeeInput) => Promise<boolean>;
   onCancelEdit: () => void;
 };
 
@@ -46,8 +46,8 @@ export default function EmployeeForm({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await onSubmit(form);
-    if (!selectedEmployee) {
+    const wasSaved = await onSubmit(form);
+    if (wasSaved && !selectedEmployee) {
       setForm(emptyForm);
     }
   }
@@ -76,6 +76,8 @@ export default function EmployeeForm({
       <label>
         <span>Name</span>
         <input
+          pattern="[A-Za-z ]+"
+          title="Name may contain English letters and spaces only"
           {...autofillSuppressionProps}
           value={form.name}
           onChange={(event) => setForm({ ...form, name: event.target.value })}

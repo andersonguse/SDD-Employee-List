@@ -368,30 +368,30 @@ validation or duplicate-email failures.
 
 ### Tests for FR-018 through FR-021
 
-- [ ] T095 [P] [US1] Add EmployeeService create tests rejecting names with numbers, punctuation, accented letters, or symbols in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
-- [ ] T096 [P] [US3] Add EmployeeService update tests rejecting names with numbers, punctuation, accented letters, or symbols while preserving existing employee data in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
-- [ ] T097 [P] [US1] Add create employee REST integration tests for invalid name field errors and duplicate-email field errors in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
-- [ ] T098 [P] [US3] Add update employee REST integration tests for invalid name field errors and duplicate-email field errors in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
-- [ ] T099 [P] [US1] Add EmployeeForm create-mode tests for name character guidance, duplicate-email alert display, and preserving entered values after failed submit in `frontend/src/components/EmployeeForm.test.tsx`
-- [ ] T100 [P] [US3] Add EmployeeForm edit-mode tests for name character guidance, duplicate-email alert display, and preserving edited values after failed submit in `frontend/src/components/EmployeeForm.test.tsx`
-- [ ] T101 [P] [US1] Add App create-flow tests proving duplicate-email failures display a clear alert and do not clear create form values in `frontend/src/App.test.tsx`
-- [ ] T102 [P] [US3] Add App edit-flow tests proving duplicate-email failures display a clear alert and do not discard edited form values in `frontend/src/App.test.tsx`
+- [X] T095 [P] [US1] Add EmployeeService create tests rejecting names with numbers, punctuation, accented letters, or symbols in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T096 [P] [US3] Add EmployeeService update tests rejecting names with numbers, punctuation, accented letters, or symbols while preserving existing employee data in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeServiceTest.java`
+- [X] T097 [P] [US1] Add create employee REST integration tests for invalid name field errors and duplicate-email field errors in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T098 [P] [US3] Add update employee REST integration tests for invalid name field errors and duplicate-email field errors in `backend/src/test/java/com/andersonguse/sddemployeelist/employee/EmployeeControllerIntegrationTest.java`
+- [X] T099 [P] [US1] Add EmployeeForm create-mode tests for name character guidance, duplicate-email alert display, and preserving entered values after failed submit in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T100 [P] [US3] Add EmployeeForm edit-mode tests for name character guidance, duplicate-email alert display, and preserving edited values after failed submit in `frontend/src/components/EmployeeForm.test.tsx`
+- [X] T101 [P] [US1] Add App create-flow tests proving duplicate-email failures display a clear alert and do not clear create form values in `frontend/src/App.test.tsx`
+- [X] T102 [P] [US3] Add App edit-flow tests proving duplicate-email failures display a clear alert and do not discard edited form values in `frontend/src/App.test.tsx`
 
 ### Implementation for FR-018 through FR-021
 
-- [ ] T103 [US1] Update EmployeeRequest name validation to require English letters A-Z/a-z and spaces only before employee creation in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRequest.java`
-- [ ] T104 [US3] Verify EmployeeRequest name validation applies to employee updates and preserves existing data on invalid name input in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T105 [US1] Update EmployeeService createEmployee name normalization and duplicate-email message to align with FR-018 and FR-019 in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T106 [US3] Update EmployeeService updateEmployee duplicate-email handling to align with FR-019 and preserve existing employee data on expected failures in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
-- [ ] T107 [US1] Update EmployeeForm create-mode name input constraints, guidance, and field-specific error rendering in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T108 [US3] Update EmployeeForm edit-mode name input constraints, guidance, and field-specific error rendering in `frontend/src/components/EmployeeForm.tsx`
-- [ ] T109 [US1] Update create-flow error handling to show a clear duplicate-email alert and keep create form values after expected failures in `frontend/src/App.tsx`
-- [ ] T110 [US3] Update edit-flow error handling to show a clear duplicate-email alert and keep edited form values after expected failures in `frontend/src/App.tsx`
-- [ ] T111 Update shared frontend API error parsing if needed so duplicate-email and validation failures do not surface as generic errors in `frontend/src/api/employees.ts`
-- [ ] T112 Update visible alert and validation styling for duplicate-email and expected save failures in `frontend/src/styles/app.css`
-- [ ] T113 Update quickstart validation scenarios for invalid names, duplicate-email alerts, and value preservation in `specs/001-employee-crud/quickstart.md`
-- [ ] T114 Run backend tests, frontend tests/build, and document FR-018 through FR-021 validation results in `specs/001-employee-crud/quickstart.md`
-- [ ] T115 Review implemented behavior against FR-018 through FR-021 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
+- [X] T103 [US1] Update EmployeeRequest name validation to require English letters A-Z/a-z and spaces only before employee creation in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeRequest.java`
+- [X] T104 [US3] Verify EmployeeRequest name validation applies to employee updates and preserves existing data on invalid name input in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T105 [US1] Update EmployeeService createEmployee name normalization and duplicate-email message to align with FR-018 and FR-019 in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T106 [US3] Update EmployeeService updateEmployee duplicate-email handling to align with FR-019 and preserve existing employee data on expected failures in `backend/src/main/java/com/andersonguse/sddemployeelist/employee/EmployeeService.java`
+- [X] T107 [US1] Update EmployeeForm create-mode name input constraints, guidance, and field-specific error rendering in `frontend/src/components/EmployeeForm.tsx`
+- [X] T108 [US3] Update EmployeeForm edit-mode name input constraints, guidance, and field-specific error rendering in `frontend/src/components/EmployeeForm.tsx`
+- [X] T109 [US1] Update create-flow error handling to show a clear duplicate-email alert and keep create form values after expected failures in `frontend/src/App.tsx`
+- [X] T110 [US3] Update edit-flow error handling to show a clear duplicate-email alert and keep edited form values after expected failures in `frontend/src/App.tsx`
+- [X] T111 Update shared frontend API error parsing if needed so duplicate-email and validation failures do not surface as generic errors in `frontend/src/api/employees.ts`
+- [X] T112 Update visible alert and validation styling for duplicate-email and expected save failures in `frontend/src/styles/app.css`
+- [X] T113 Update quickstart validation scenarios for invalid names, duplicate-email alerts, and value preservation in `specs/001-employee-crud/quickstart.md`
+- [X] T114 Run backend tests, frontend tests/build, and document FR-018 through FR-021 validation results in `specs/001-employee-crud/quickstart.md`
+- [X] T115 Review implemented behavior against FR-018 through FR-021 and record acceptance result in `specs/001-employee-crud/checklists/requirements.md`
 
 **Checkpoint**: Employee names accept only English letters and spaces,
 duplicate-email failures show a clear user-facing alert, expected save failures

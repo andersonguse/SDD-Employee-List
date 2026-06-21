@@ -42,7 +42,7 @@ export default function App() {
     }
   }
 
-  async function handleSubmit(input: EmployeeInput) {
+  async function handleSubmit(input: EmployeeInput): Promise<boolean> {
     setIsSaving(true);
     setFieldErrors({});
     setNotice(null);
@@ -56,13 +56,15 @@ export default function App() {
         setNotice({ type: 'success', message: 'Employee added.' });
       }
       setEmployees(await listEmployees());
+      return true;
     } catch (error) {
       if (isApiError(error)) {
         setFieldErrors(error.fieldErrors ?? {});
-        setNotice({ type: 'error', message: error.message });
+        setNotice({ type: 'error', message: getSaveErrorMessage(error) });
       } else {
         setNotice({ type: 'error', message: 'Unable to save employee. Please try again.' });
       }
+      return false;
     } finally {
       setIsSaving(false);
     }
@@ -95,7 +97,14 @@ export default function App() {
         </div>
       </section>
 
-      {notice && <p className={`notice ${notice.type}`}>{notice.message}</p>}
+      {notice && (
+        <p
+          className={`notice ${notice.type}`}
+          role={notice.type === 'error' ? 'alert' : 'status'}
+        >
+          {notice.message}
+        </p>
+      )}
 
       <section className="content-grid">
         <EmployeeForm
@@ -132,4 +141,13 @@ export default function App() {
       </section>
     </main>
   );
+}
+
+function getSaveErrorMessage(error: ApiError) {
+  if (error.fieldErrors.email) {
+    return error.fieldErrors.email;
+  }
+
+  const firstFieldError = Object.values(error.fieldErrors)[0];
+  return firstFieldError ?? error.message;
 }

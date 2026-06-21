@@ -72,6 +72,17 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void rejectsCreateWithInvalidName() throws Exception {
+        mockMvc.perform(post("/api/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name":"Ada 2","email":"ada2@example.com","phoneNumber":"555-010-0100"}
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.name").value("Name may contain English letters and spaces only"));
+    }
+
+    @Test
     void rejectsDuplicateCreate() throws Exception {
         saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
 
@@ -81,7 +92,24 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
                                 {"name":"Ada Byron","email":"ADA@example.com","phoneNumber":"555-010-0101"}
                                 """))
                 .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.fieldErrors.email").exists());
+                .andExpect(jsonPath("$.message").value("Cannot use existing email"))
+                .andExpect(jsonPath("$.fieldErrors.email").value("Cannot use existing email"));
+    }
+
+    @Test
+    void rejectsDuplicateCreateFromLocalhostAliasWithClearError() throws Exception {
+        saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
+
+        mockMvc.perform(post("/api/employees")
+                        .header("Origin", "http://127.0.0.1:5173")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name":"Ada Byron","email":"ADA@example.com","phoneNumber":"555-010-0101"}
+                                """))
+                .andExpect(status().isConflict())
+                .andExpect(header().string("Access-Control-Allow-Origin", "http://127.0.0.1:5173"))
+                .andExpect(jsonPath("$.message").value("Cannot use existing email"))
+                .andExpect(jsonPath("$.fieldErrors.email").value("Cannot use existing email"));
     }
 
     @Test
@@ -146,6 +174,19 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void rejectsUpdateWithInvalidName() throws Exception {
+        Employee employee = saveEmployee("Ada Lovelace", "ada@example.com", "555-010-0100");
+
+        mockMvc.perform(put("/api/employees/{id}", employee.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name":"Ada!","email":"ada.byron@example.com","phoneNumber":"555-020-0200"}
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.name").value("Name may contain English letters and spaces only"));
+    }
+
+    @Test
     void returnsNotFoundForMissingUpdate() throws Exception {
         mockMvc.perform(put("/api/employees/{id}", 999L)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -164,9 +205,10 @@ class EmployeeControllerIntegrationTest extends PostgresIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"name":"Grace Hopper","email":"ada@example.com","phoneNumber":"555-222-2222"}
-                                """))
+                """))
                 .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.fieldErrors.email").exists());
+                .andExpect(jsonPath("$.message").value("Cannot use existing email"))
+                .andExpect(jsonPath("$.fieldErrors.email").value("Cannot use existing email"));
     }
 
     @Test

@@ -13,6 +13,9 @@ public class EmployeeService {
 
     private static final String PHONE_FORMAT_PATTERN = "\\d{3}-\\d{3}-\\d{4}";
     private static final String PHONE_FORMAT_MESSAGE = "Phone number must be in 123-456-7890 format";
+    private static final String NAME_FORMAT_PATTERN = "[A-Za-z ]+";
+    private static final String NAME_FORMAT_MESSAGE = "Name may contain English letters and spaces only";
+    private static final String DUPLICATE_EMAIL_MESSAGE = "Cannot use existing email";
 
     private final EmployeeRepository employeeRepository;
 
@@ -22,12 +25,12 @@ public class EmployeeService {
 
     @Transactional
     public EmployeeResponse createEmployee(EmployeeRequest request) {
-        String name = normalizeRequired(request.name());
+        String name = normalizeName(request.name());
         String email = normalizeEmail(request.email());
         String phoneNumber = normalizePhoneNumber(request.phoneNumber());
 
         if (employeeRepository.existsByEmailIgnoreCase(email)) {
-            throw new DuplicateEmailException("email", "Email address is already used by another employee");
+            throw new DuplicateEmailException("email", DUPLICATE_EMAIL_MESSAGE);
         }
 
         Employee employee = new Employee(name, email, phoneNumber);
@@ -50,12 +53,12 @@ public class EmployeeService {
     @Transactional
     public EmployeeResponse updateEmployee(Long id, EmployeeRequest request) {
         Employee employee = findEmployee(id);
-        String name = normalizeRequired(request.name());
+        String name = normalizeName(request.name());
         String email = normalizeEmail(request.email());
         String phoneNumber = normalizePhoneNumber(request.phoneNumber());
 
         if (employeeRepository.existsByEmailIgnoreCaseAndIdNot(email, id)) {
-            throw new DuplicateEmailException("email", "Email address is already used by another employee");
+            throw new DuplicateEmailException("email", DUPLICATE_EMAIL_MESSAGE);
         }
 
         employee.setName(name);
@@ -77,6 +80,14 @@ public class EmployeeService {
 
     private String normalizeEmail(String value) {
         return normalizeRequired(value).toLowerCase();
+    }
+
+    private String normalizeName(String value) {
+        String normalized = normalizeRequired(value);
+        if (!normalized.matches(NAME_FORMAT_PATTERN)) {
+            throw new IllegalArgumentException(NAME_FORMAT_MESSAGE);
+        }
+        return normalized;
     }
 
     private String normalizePhoneNumber(String value) {

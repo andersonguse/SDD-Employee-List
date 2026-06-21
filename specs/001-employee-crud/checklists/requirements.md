@@ -57,3 +57,8 @@
   only, clear duplicate-email pop-up messages or equally visible alerts, and
   preservation of entered form values after expected save failures. Checklist
   remains passing with no clarification markers.
+- Implementation acceptance reviewed on 2026-06-21 against FR-018 through
+  FR-021. Targeted backend service/API tests passed, frontend tests passed, and
+  frontend build passed. Invalid names are rejected with name-specific
+  validation, duplicate emails show "Cannot use existing email" in a visible
+  alert, and expected failures preserve the user's entered create/edit values.

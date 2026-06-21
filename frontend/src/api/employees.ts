@@ -66,17 +66,63 @@ async function parseResponse<T>(response: Response): Promise<T> {
     return (await response.json()) as T;
   }
 
-  const fallback: ApiError = {
-    message: 'Something went wrong. Please try again.',
-    fieldErrors: {},
-  };
+  const fallback = errorForStatus(response.status);
 
   try {
-    throw { ...fallback, ...(await response.json()) };
+    const body = await response.json();
+    throw normalizeApiError(body, fallback);
   } catch (error) {
     if (isApiError(error)) {
       throw error;
     }
     throw fallback;
   }
+}
+
+function normalizeApiError(body: unknown, fallback: ApiError): ApiError {
+  if (!body || typeof body !== 'object') {
+    return fallback;
+  }
+
+  const maybeError = body as Partial<ApiError>;
+  return {
+    message: typeof maybeError.message === 'string' ? maybeError.message : fallback.message,
+    fieldErrors: isFieldErrors(maybeError.fieldErrors) ? maybeError.fieldErrors : fallback.fieldErrors,
+  };
+}
+
+function isFieldErrors(value: unknown): value is Record<string, string> {
+  return Boolean(
+    value &&
+      typeof value === 'object' &&
+      Object.values(value).every((fieldError) => typeof fieldError === 'string'),
+  );
+}
+
+function errorForStatus(status: number): ApiError {
+  if (status === 409) {
+    return {
+      message: 'Cannot use existing email',
+      fieldErrors: { email: 'Cannot use existing email' },
+    };
+  }
+
+  if (status === 400) {
+    return {
+      message: 'Please correct the highlighted fields',
+      fieldErrors: {},
+    };
+  }
+
+  if (status === 403) {
+    return {
+      message: 'The save request was blocked. Please check the form values and try again.',
+      fieldErrors: {},
+    };
+  }
+
+  return {
+    message: 'Unable to save employee. Please try again.',
+    fieldErrors: {},
+  };
 }

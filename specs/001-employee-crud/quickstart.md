@@ -211,6 +211,13 @@ Validated on 2026-06-18:
   Flyway application of `V2__normalize_employee_phone_numbers.sql`. `npm test`
   and `npm run build` passed from `frontend/`, including create/edit form
   guidance for `123-456-7890` phone input.
+- FR-018 through FR-021 validation on 2026-06-21: targeted backend tests
+  `mvn -Dtest=EmployeeServiceTest,EmployeeControllerIntegrationTest test`
+  passed from `backend/`, including invalid-name rejection and duplicate-email
+  API responses for create and edit flows. Frontend `npm test -- --run` and
+  `npm run build` passed from `frontend/`, including visible duplicate-email
+  alerts and preservation of create/edit form values after expected save
+  failures.
 
 Note: Docker was available as a CLI, but the local Docker daemon was not
 available to automated tests in this environment. Backend tests therefore use an

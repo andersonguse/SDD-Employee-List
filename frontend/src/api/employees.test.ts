@@ -49,6 +49,25 @@ describe('employees api client', () => {
     await expect(createEmployee({ name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }))
       .rejects.toMatchObject({ message: 'Bad data', fieldErrors: { email: 'Duplicate' } });
   });
+
+  it('normalizes duplicate-email conflicts when field errors are missing', async () => {
+    fetchMock.mockResolvedValue(jsonResponse({ message: 'Cannot use existing email' }, 409));
+
+    await expect(createEmployee({ name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }))
+      .rejects.toMatchObject({
+        message: 'Cannot use existing email',
+        fieldErrors: { email: 'Cannot use existing email' },
+      });
+  });
+
+  it('does not surface generic messages for blocked save requests', async () => {
+    fetchMock.mockResolvedValue(new Response('Forbidden', { status: 403 }));
+
+    await expect(createEmployee({ name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }))
+      .rejects.toMatchObject({
+        message: 'The save request was blocked. Please check the form values and try again.',
+      });
+  });
 });
 
 function jsonResponse(body: unknown, status = 200) {

@@ -51,6 +51,47 @@ describe('EmployeeForm', () => {
     expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-invalid', 'true');
   });
 
+  it('shows name character guidance in create mode', () => {
+    render(
+      <EmployeeForm
+        selectedEmployee={null}
+        fieldErrors={{}}
+        isSaving={false}
+        onSubmit={vi.fn()}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByLabelText(/name/i)).toHaveAttribute('pattern', '[A-Za-z ]+');
+    expect(screen.getByLabelText(/name/i)).toHaveAttribute(
+      'title',
+      'Name may contain English letters and spaces only',
+    );
+  });
+
+  it('keeps create values after failed submit', async () => {
+    const onSubmit = vi.fn().mockResolvedValue(false);
+    render(
+      <EmployeeForm
+        selectedEmployee={null}
+        fieldErrors={{ email: 'Cannot use existing email' }}
+        isSaving={false}
+        onSubmit={onSubmit}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    await userEvent.type(screen.getByLabelText(/name/i), 'Ada Lovelace');
+    await userEvent.type(screen.getByLabelText(/email/i), 'ada@example.com');
+    await userEvent.type(screen.getByLabelText(/phone/i), '555-010-0100');
+    await userEvent.click(screen.getByRole('button', { name: /add employee/i }));
+
+    expect(screen.getByText('Cannot use existing email')).toBeInTheDocument();
+    expect(screen.getByLabelText(/name/i)).toHaveValue('Ada Lovelace');
+    expect(screen.getByLabelText(/email/i)).toHaveValue('ada@example.com');
+    expect(screen.getByLabelText(/phone/i)).toHaveValue('555-010-0100');
+  });
+
   it('shows phone format guidance in create mode', () => {
     render(
       <EmployeeForm
@@ -126,6 +167,47 @@ describe('EmployeeForm', () => {
     expect(screen.getByLabelText(/phone/i)).toHaveAttribute('inputmode', 'numeric');
     expect(screen.getByLabelText(/phone/i)).toHaveAttribute('placeholder', '123-456-7890');
     expect(screen.getByLabelText(/phone/i)).toHaveAttribute('pattern', '\\d{3}-\\d{3}-\\d{4}');
+  });
+
+  it('shows name character guidance in edit mode', () => {
+    render(
+      <EmployeeForm
+        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }}
+        fieldErrors={{}}
+        isSaving={false}
+        onSubmit={vi.fn()}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByLabelText(/name/i)).toHaveAttribute('pattern', '[A-Za-z ]+');
+    expect(screen.getByLabelText(/name/i)).toHaveAttribute(
+      'title',
+      'Name may contain English letters and spaces only',
+    );
+  });
+
+  it('keeps edit values after failed submit', async () => {
+    const onSubmit = vi.fn().mockResolvedValue(false);
+    render(
+      <EmployeeForm
+        selectedEmployee={{ id: 1, name: 'Ada', email: 'ada@example.com', phoneNumber: '555-010-0100' }}
+        fieldErrors={{ email: 'Cannot use existing email' }}
+        isSaving={false}
+        onSubmit={onSubmit}
+        onCancelEdit={vi.fn()}
+      />,
+    );
+
+    await userEvent.clear(screen.getByLabelText(/name/i));
+    await userEvent.type(screen.getByLabelText(/name/i), 'Ada Byron');
+    await userEvent.clear(screen.getByLabelText(/email/i));
+    await userEvent.type(screen.getByLabelText(/email/i), 'ada.byron@example.com');
+    await userEvent.click(screen.getByRole('button', { name: /save changes/i }));
+
+    expect(screen.getByText('Cannot use existing email')).toBeInTheDocument();
+    expect(screen.getByLabelText(/name/i)).toHaveValue('Ada Byron');
+    expect(screen.getByLabelText(/email/i)).toHaveValue('ada.byron@example.com');
   });
 
   it('disables browser autocomplete for edit mode employee fields', () => {
