@@ -53,3 +53,7 @@
   Backend tests, frontend tests, and frontend build passed. Existing seven-digit
   phone conversion is covered by the new Flyway migration, and create/update
   validation rejects phone numbers outside `123-456-7890` format.
+- Specification updated on 2026-06-21 to require names with letters and spaces
+  only, clear duplicate-email pop-up messages or equally visible alerts, and
+  preservation of entered form values after expected save failures. Checklist
+  remains passing with no clarification markers.

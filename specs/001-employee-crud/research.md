@@ -74,17 +74,43 @@ Boot backend, and it keeps the contract easy to review and test.
 
 Validate employee input on both frontend and backend, with backend validation as
 the source of truth before persistence. Return field-level validation errors for
-bad input and a friendly general error for unexpected failures.
+bad input, a visible duplicate-email alert for duplicate email attempts, and a
+friendly general error for unexpected failures. Preserve the user's current form
+values after expected validation or duplicate-email failures so the user can
+correct the entry without retyping.
 
 **Rationale**: Frontend validation improves user experience, while backend
 validation enforces data integrity. Field-level errors directly satisfy the
-feature requirements.
+feature requirements. A duplicate-email alert gives the user a clear recovery
+path for a common business-rule failure and prevents expected failures from
+looking like not-found, permission, or generic system errors.
 
 **Alternatives considered**:
 - Frontend-only validation: rejected because invalid data could still reach
   persistence.
 - Generic error messages only: rejected because the spec requires field-specific
   messages.
+- Clearing the form after failed saves: rejected because it forces the user to
+  retype data and violates the requirement to keep values available for
+  correction.
+
+## Decision: Employee Name Validation
+
+Require employee names to contain English letters A-Z/a-z and spaces only after
+trimming. Reject names containing numbers, punctuation, accented letters, or
+symbols before persistence.
+
+**Rationale**: The clarified requirement intentionally keeps the demo rule
+simple and easy to explain. Applying the same rule to create and edit flows
+keeps the data model consistent and avoids storing invalid employee names.
+
+**Alternatives considered**:
+- Unicode letters and spaces: rejected because the clarification narrowed the
+  demo to English letters only.
+- Apostrophes and hyphens for real-world names: rejected because punctuation is
+  explicitly out of scope for this demo rule.
+- Backend-only validation: rejected because frontend guidance should prevent
+  obvious mistakes while backend validation remains the source of truth.
 
 ## Decision: CI/CD Scope
 

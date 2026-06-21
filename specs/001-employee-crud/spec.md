@@ -8,6 +8,12 @@
 
 **Input**: User description: "Build me an application that allows a user to interact with a web page to enter in employee information and save it to a database. There is no login for simplicity (no authentication) and they should be able to perform all CRUD operations. They should be able to view current employees, remove/edit them and also add new ones."
 
+## Clarifications
+
+### Session 2026-06-21
+
+- Q: Which letters are valid for employee names? -> A: English letters A-Z/a-z and spaces only.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Add Employee (Priority: P1)
@@ -37,6 +43,17 @@ employee list after the save.
    employee with a phone number that is not exactly in `123-456-7890` format,
    **Then** the employee is not saved and the page identifies the phone number
    field as needing correction.
+5. **Given** the user is on the employee page, **When** they attempt to save an
+   employee with a name containing anything other than English letters A-Z/a-z
+   and spaces, **Then** the employee is not saved, the page identifies the name
+   field as needing correction, and the entered values remain available for
+   editing.
+6. **Given** the user is on the employee page, **When** they attempt to save an
+   employee using an email address that already belongs to another saved
+   employee, **Then** the employee is not saved, the entered values remain
+   available for editing, and the page shows a clear pop-up message or equally
+   visible alert such as "Cannot use existing email" instead of a generic
+   failure message.
 
 ---
 
@@ -89,6 +106,17 @@ in the current employee list.
    employee with a phone number that is not exactly in `123-456-7890` format,
    **Then** the existing employee record remains unchanged and the page
    identifies the phone number field as needing correction.
+5. **Given** an employee exists, **When** the user attempts to update the
+   employee with a name containing anything other than English letters A-Z/a-z
+   and spaces, **Then** the existing employee record remains unchanged, the page
+   identifies the name field as needing correction, and the edited values remain
+   available for correction.
+6. **Given** an employee exists, **When** the user attempts to update the
+   employee using an email address that already belongs to another saved
+   employee, **Then** the existing employee record remains unchanged, the edited
+   values remain available for correction, and the page shows a clear pop-up
+   message or equally visible alert such as "Cannot use existing email" instead
+   of a generic failure message.
 
 ---
 
@@ -117,12 +145,16 @@ confirming the employee no longer appears in the current employee list.
 
 - The user submits an employee with a missing name, email address, or phone
   number.
+- The user submits an employee name containing numbers, punctuation, accented
+  letters, or symbols.
 - The user submits an employee with an email address that is not in a valid email
   format.
 - The user submits an employee with a phone number that is not exactly 10 digits
   in `123-456-7890` format.
 - The user attempts to create or update an employee using an email address that
   already belongs to another saved employee.
+- The user enters multiple invalid values at once, such as an existing email
+  address and an incorrectly formatted phone number.
 - The user attempts to edit or remove an employee that no longer exists because
   it was already removed.
 - Saving, updating, loading, or deleting employees fails unexpectedly.
@@ -169,12 +201,26 @@ confirming the employee no longer appears in the current employee list.
 - **FR-017**: The system MUST disable browser autofill and autocomplete
   suggestions for all employee data entry forms, including employee creation and
   employee editing.
+- **FR-018**: The system MUST reject employee names that contain anything other
+  than English letters A-Z/a-z and spaces before saving or updating an employee.
+- **FR-019**: The system MUST show a clear duplicate-email message for create
+  and update attempts that use an email address already assigned to another
+  saved employee; the message MUST be a pop-up message or equally visible alert
+  specific enough for the user to understand that an existing email cannot be
+  reused.
+- **FR-020**: The system MUST keep the user's entered create or edit form values
+  available for correction when validation, duplicate-email, or other expected
+  save failures occur.
+- **FR-021**: The system MUST NOT present expected validation or duplicate-email
+  failures as generic "something went wrong" failures, not-found failures, or
+  permission failures.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Employee**: Represents a person tracked by the application. Key attributes
   are name, email address, and phone number. Email address uniquely identifies a
-  saved employee for duplicate-prevention purposes.
+  saved employee for duplicate-prevention purposes. Name contains only English
+  letters A-Z/a-z and spaces.
 
 ## Success Criteria *(mandatory)*
 
@@ -189,13 +235,17 @@ confirming the employee no longer appears in the current employee list.
 - **SC-004**: A user can remove an employee in under 30 seconds after choosing
   the employee from the list.
 - **SC-005**: 100% of attempts to save missing or malformed required employee
-  information, including phone numbers not in `123-456-7890` format, are
-  rejected with a visible validation message.
+  information, including names with numbers, names with punctuation, and phone
+  numbers not in `123-456-7890` format, are rejected with a visible validation
+  message.
 - **SC-006**: 100% of successful create, update, and delete actions are reflected
   in the employee list without requiring the user to manually inspect the
   database.
 - **SC-007**: During create and edit workflows, 100% of checks on employee name
   and email address fields show no browser autofill or autocomplete suggestions.
+- **SC-008**: 100% of duplicate-email create and update attempts show a clear
+  duplicate-email pop-up message or equally visible alert and keep the user's
+  entered values available for correction.
 
 ## Assumptions
 
@@ -203,6 +253,9 @@ confirming the employee no longer appears in the current employee list.
 - The application is intended for demonstration use, so no authentication,
   authorization, audit history, or multi-user permission model is included.
 - Employee email addresses are unique within the application.
+- Employee names may contain English letters A-Z/a-z and spaces only; numbers,
+  punctuation, accented letters, and symbols are not valid employee name
+  characters for this demo.
 - Phone numbers must be entered and stored in `123-456-7890` format.
 - Deleting an employee removes the employee from the current employee list; no
   recovery workflow is required for this feature.

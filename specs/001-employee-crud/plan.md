@@ -28,7 +28,9 @@ employee IDs use a simple auto-generated incrementing numeric value
 **Testing**: JUnit 5, Spring Boot Test, MockMvc or WebTestClient for REST
 behavior, Testcontainers or a CI PostgreSQL service for persistence behavior,
 Vitest and React Testing Library for frontend behavior, including checks that
-employee form fields expose disabled browser autocomplete behavior
+employee form fields expose disabled browser autocomplete behavior, reject
+invalid employee names, show duplicate-email alerts, and preserve entered form
+values after expected save failures
 
 **Target Platform**: Local developer machine for interview demonstration;
 GitHub Actions for pull/push validation only
@@ -60,11 +62,13 @@ list, expected to handle dozens to hundreds of records comfortably
   controllers, services, repositories, and entities; frontend UI and API client
   concerns are separate.
 - Data integrity: PASS. Validation, duplicate email prevention, auto-generated
-  IDs, and invalid-input behavior are defined in the data model and contracts.
+  IDs, employee name rules, duplicate email prevention, expected failure
+  behavior, and invalid-input behavior are defined in the data model and
+  contracts.
 - Testability: PASS. Backend service/API/persistence tests and frontend UI tests
   are planned, with CI running useful automated checks.
 - Traceability: PASS. Plan, research, data model, contracts, and quickstart map
-  back to feature requirements FR-001 through FR-017.
+  back to feature requirements FR-001 through FR-021.
 - Verification: PASS. Quickstart scenarios and CI checks provide acceptance
   review evidence before code is accepted.
 - Clarifications: PASS. No unresolved `NEEDS CLARIFICATION` markers remain.
@@ -140,6 +144,12 @@ owns validation-only CI.
 using standard HTML `autocomplete` attributes on the employee form and its input
 fields. Do not add JavaScript autofill suppression unless validation shows the
 browser-native approach fails for the target local demo browser.
+
+**Validation UX Decision**: Implement FR-018 through FR-021 by keeping backend
+validation as the source of truth, adding matching frontend pre-submit guidance
+for employee names, mapping duplicate-email responses to a visible alert, and
+retaining current form state whenever create or edit saves fail for expected
+validation or duplicate-email reasons.
 
 ## Complexity Tracking
 

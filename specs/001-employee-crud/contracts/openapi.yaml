@@ -135,6 +135,8 @@ components:
         name:
           type: string
           minLength: 1
+          pattern: "^[A-Za-z ]+$"
+          example: "Ada Lovelace"
         email:
           type: string
           format: email
@@ -154,6 +156,8 @@ components:
         name:
           type: string
           minLength: 1
+          pattern: "^[A-Za-z ]+$"
+          example: "Ada Lovelace"
         email:
           type: string
           format: email
@@ -168,6 +172,11 @@ components:
       required:
         - message
         - fieldErrors
+      example:
+        message: "Validation failed"
+        fieldErrors:
+          name: "Name may contain English letters and spaces only"
+          email: "Cannot use existing email"
       properties:
         message:
           type: string

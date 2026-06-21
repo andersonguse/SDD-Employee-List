@@ -83,6 +83,17 @@ Expected result: The employee is persisted and visible after refresh.
 Expected result: The app shows a phone-specific validation message and does
 not save the employee.
 
+### Reject Invalid Employee Name
+
+1. Open the employee page.
+2. Enter an employee name with numbers, punctuation, accented letters, or
+   symbols, such as `Sumeet Parashar 2`.
+3. Enter a valid email address and a phone number in `123-456-7890` format.
+4. Attempt to save the employee.
+
+Expected result: The app shows a name-specific validation message, does not save
+the employee, and leaves the entered values available for correction.
+
 ### View Empty List
 
 1. Reset or start with an empty database.
@@ -108,6 +119,17 @@ same.
 
 Expected result: The app shows a phone-specific validation message, and the
 previously saved employee values remain unchanged.
+
+### Reject Invalid Name Edit
+
+1. Select an existing employee.
+2. Change the employee name to a value with numbers, punctuation, accented
+   letters, or symbols.
+3. Attempt to save the changes.
+
+Expected result: The app shows a name-specific validation message, the
+previously saved employee values remain unchanged, and the edited values remain
+available for correction.
 
 ### Existing Seven-Digit Phone Conversion
 
@@ -146,7 +168,10 @@ previously saved employee values remain unchanged.
 1. Create one employee with an email address.
 2. Attempt to create or update another employee using the same email.
 
-Expected result: The duplicate is rejected with a visible validation message.
+Expected result: The duplicate is rejected with a clear duplicate-email pop-up
+message or equally visible alert, such as "Cannot use existing email." The
+entered values remain available for correction, and the expected failure is not
+shown as a generic "something went wrong", not-found, or permission failure.
 
 ### Remove Employee
 
