@@ -1,6 +1,6 @@
 # Feature Specification: Employee CRUD Management
 
-**Feature Branch**: `main`
+**Feature Branch**: `001-employee-crud`
 
 **Created**: 2026-06-18
 
