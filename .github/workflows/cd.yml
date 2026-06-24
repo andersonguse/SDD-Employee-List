@@ -1,0 +1,77 @@
+name: CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment name for the mock deployment
+        required: true
+        default: demo
+        type: choice
+        options:
+          - demo
+          - staging
+
+jobs:
+  mock-aws-deploy:
+    name: Mock AWS deployment
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Build backend artifact
+        working-directory: backend
+        run: mvn -DskipTests package
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend artifact
+        working-directory: frontend
+        run: npm run build
+
+      - name: Collect deployment package
+        shell: bash
+        run: |
+          mkdir -p deployment-package/backend deployment-package/frontend
+          cp backend/target/*.jar deployment-package/backend/
+          cp -R frontend/dist/. deployment-package/frontend/
+
+      # Real AWS deployment would require configured GitHub repository secrets
+      # and should only be enabled when a real AWS account/environment exists.
+      #
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+      #
+      # - name: Upload frontend to S3
+      #   run: aws s3 sync deployment-package/frontend s3://example-bucket --delete
+      #
+      # - name: Deploy backend to Elastic Beanstalk or ECS
+      #   run: echo "Replace with real AWS deployment command"
+
+      - name: Mock deploy to AWS
+        run: |
+          echo "Mock deploying employee directory to AWS environment: ${{ inputs.environment }}"
+          echo "Backend artifact:"
+          ls -la deployment-package/backend
+          echo "Frontend artifact:"
+          ls -la deployment-package/frontend
+          echo "No AWS resources were changed. This workflow demonstrates the CD shape only."
